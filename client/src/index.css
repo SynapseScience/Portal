@@ -1,0 +1,82 @@
+body, html {
+  margin: 0px;
+  font-family: "Poppins";
+  height: 100%;
+  width: 100%;
+  --nav-height: 100px;
+  background: black;
+  color: white;
+}
+
+#root {
+  height: 100%
+}
+
+nav {
+  height: var(--nav-height);
+  display: flex;
+  padding: 0 40px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
+
+#root > main {
+  min-height: calc(100% - var(--nav-height));
+}
+
+pre:has(code) {
+  background: #ededed;
+  padding: 40px;
+  border-radius: 5px;
+}
+
+code {
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+.profile {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  width: 300px;
+}
+
+.profile > * {
+  margin: 0px;
+}
+
+.cols {
+  display: flex;
+  gap: 50px;
+}
+
+.profile .avatar {
+  width: 100px;
+  height: 100px;
+  background: #f2f2f2;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: clip;
+}
+
+.profile .badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: calc(100% - 20px);
+  padding: 10px;
+  background: var(--lightgrey);
+  border-radius: 10px;
+}
+
+.profile .badges > img {
+  width: 30px;
+  height: 30px;
+  flex: 0 0;
+}
