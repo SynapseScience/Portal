@@ -1,0 +1,17 @@
+{
+  "name": "Synapse-Express-React-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "npx tsx src/index.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2",
+    "npx": "^10.2.2",
+    "path": "^0.12.7",
+    "process": "^0.11.10",
+    "tsx": "^4.19.2"
+  }
+}
