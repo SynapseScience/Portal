@@ -1,0 +1,31 @@
+#root > main > nav {
+  display: flex;
+  flex-direction: column;
+  width: 210px;
+  height: calc(100% - 20px);
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px 40px;
+  padding-left: 55px;
+  align-items: flex-start;
+}
+
+#root > main {
+  padding: 0px;
+  display: flex;
+  width: 100%;
+  height: calc(100% - var(--nav-height));
+}
+
+.menu-item {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+.menu-item.disabled {
+  color: grey;
+  pointer-events: none;
+}

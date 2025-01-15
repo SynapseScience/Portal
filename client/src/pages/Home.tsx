@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Home.css";
 import AppCard from "../parts/AppCard";
-import Icon from "../parts/Icon";
 
-function MenuItem({ icon, text, disabled = false }) {
-  return <a className={"menu-item" + (disabled ? " disabled" : "")}><Icon name={icon} outline={false} /> {text}</a>
-}
+import "./Home.css";
 
 export default function Home() {
   const [apps, setApps] = useState([]);
@@ -26,21 +22,15 @@ export default function Home() {
   }, []);
   
   return <>
-    <nav>
-      <MenuItem icon="house" text="Applications" />
-      <MenuItem icon="newspaper" text="Médias" disabled={true} />
-      <MenuItem icon="calendar-check" text="Évènements" disabled={true} />
-      <MenuItem icon="money-bill-trend-up" text="Échanges" disabled={true} />
-      <MenuItem icon="gear" text="Devkit" />
-    </nav>
-    <main>
       <nav>
-        <input placeholder="Rechercher un projet ou un utilisateur" type="text" />
-        <button>rechercher</button>
+        <h1>Applications</h1>
+        <div>
+          <input placeholder="Rechercher une application" type="text" />
+          <button>rechercher</button>
+        </div>
       </nav>
       <div class="results"> {
         apps.map(app => <AppCard app={app} />)
       }</div>
-    </main>
   </>;
 }
