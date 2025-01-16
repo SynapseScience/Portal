@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Session } from "./synapse-front.mjs";
@@ -17,11 +17,13 @@ const App = () => {
   const synapse = new Session("https://synapse-api.replit.app/api");
   const [user, setUser] = useState(null);
 
-  synapse.on('connected', (user) => {
-    setUser(user);
-  });
+  useEffect(() => {
+    synapse.on('connected', (user) => {
+      setUser(user);
+    });
 
-  synapse.update();
+    synapse.update();
+  }, [])
   
   return <Router>
       <Routes>
