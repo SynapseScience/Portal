@@ -14,7 +14,7 @@ function Mission({ reward, description, action=() => {}, author }) {
   </div>
 }
 
-export default function Trade() {
+export default function Trade({ me, token, session }) {
 
   return <div className="cols equal">
       <div className="bubble">

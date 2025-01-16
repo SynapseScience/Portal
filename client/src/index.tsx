@@ -16,10 +16,12 @@ import Trade from './pages/Trade';
 const App = () => {
   const synapse = new Session("https://synapse-api.replit.app/api");
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     synapse.on('connected', (user) => {
       setUser(user);
+      setToken(synapse.token);
     });
 
     synapse.update();
@@ -28,19 +30,31 @@ const App = () => {
   return <Router>
       <Routes>
         <Route path="/" element={
-          <Layout me={user} content={<Home me={user} session={synapse} />} />
+          <Layout me={user} content={
+            <Home 
+              me={user} 
+              token={token}
+              session={synapse}
+            />
+          } />
         } />
         <Route path="/devkit" element={
-          <Layout me={user} content={<Devkit me={user} session={synapse} />} />
+          <Layout me={user} content={
+            <Devkit 
+              me={user} 
+              token={token}
+              session={synapse}
+            />
+          } />
         } />
         <Route path="/trade" element={
-          <Layout me={user} content={<Trade me={user} session={synapse} />} />
-        } />
-        <Route path="/application" element={
-          <Layout me={user} content={<Application me={user} session={synapse} />} />
-        } />
-        <Route path="/user" element={
-          <Layout me={user} content={<User me={user} session={synapse} />} />
+          <Layout me={user} content={
+            <Trade 
+              me={user} 
+              token={token}
+              session={synapse}
+            />
+          } />
         } />
       </Routes>
     </Router>

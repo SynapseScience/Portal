@@ -3,13 +3,13 @@ import AppCard from "../parts/AppCard";
 
 import "./Home.css";
 
-export default function Home() {
+export default function Home({ me, token, session }) {
   const [apps, setApps] = useState([]);
 
   useEffect(() => {
     (async () => {
        try {
-         const response = await fetch('https://synapse-api.replit.app/api/applications');
+         const response = await fetch(session.apiUrl + '/applications');
          if (!response.ok) {
            throw new Error(`HTTP error! status: ${response.status}`);
          }
@@ -30,7 +30,7 @@ export default function Home() {
         </div>
       </nav>
       <div class="results"> {
-        apps.map(app => <AppCard app={app} />)
+        apps.map(app => <AppCard app={app} session={session} token={token} />)
       }</div>
   </>;
 }
