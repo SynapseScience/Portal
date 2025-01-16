@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 
 
 
-export default function Devkit({ me, session }) {
+export default function Devkit({ me, token, session }) {
 
   const [formData, setFormData] = useState({
     client_id: "",
     title: "",
     description: "",
-    type: "Outil",
+    type: "outil",
     uris: "",
     link: "",
   });
@@ -32,7 +32,7 @@ export default function Devkit({ me, session }) {
       const res = await fetch(session.apiUrl + "/application", {
         method: "POST",
         headers: {
-          "Authorization": "Bearer " + session.token,
+          "Authorization": "Bearer " + token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(processedData),
@@ -92,11 +92,11 @@ export default function Devkit({ me, session }) {
         <div className="field">
           <span className="field-title">Type</span>
           <select id="type" value={formData.type} onChange={handleChange}>
-            <option>Outil</option>
-            <option>Jeu</option>
-            <option>Plate-forme</option>
-            <option>Données</option>
-            <option>Forum</option>
+            <option value="outil">Outil</option>
+            <option value="jeu">Jeu</option>
+            <option value="plateforme">Plate-forme</option>
+            <option value="données">Données</option>
+            <option value="forum">Forum</option>
           </select>
         </div>
         <div className="field">
