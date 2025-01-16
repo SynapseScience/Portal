@@ -11,7 +11,6 @@
   color: black;
   background: white;
   border-top-left-radius: 35px;
-  overflow: clip;
 }
 
 #root > main > main > nav > div > * {

@@ -8,14 +8,14 @@ function MenuItem({ icon, text, to, disabled = false }) {
     <Icon name={icon} outline={false} /> {text}</a>
 }
 
-export default function Layout({ session, content }) {
+export default function Layout({ content, me }) {
   return <>
     <nav>
       <h1 id="title">Synapse</h1>
-      <Button 
+      <Button
+        me={me}
         host="https://synapse-api.replit.app"
         uri={window.location.origin}
-        session={session}
         />
     </nav>
     <main>
@@ -24,7 +24,7 @@ export default function Layout({ session, content }) {
         <MenuItem to="/social" icon="comments" text="Communauté" disabled={true} />
         <MenuItem to="/medias" icon="newspaper" text="Médias" disabled={true} />
         <MenuItem to="/events" icon="calendar-check" text="Évènements" disabled={true} />
-        <MenuItem to="/trade" icon="money-bill-trend-up" text="Échanges" disabled={true} />
+        <MenuItem to="/trade" icon="money-bill-trend-up" text="Échanges" />
         <MenuItem to="/devkit" icon="gear" text="Devkit" />
       </nav>
       <main>

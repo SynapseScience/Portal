@@ -1,0 +1,34 @@
+.missions {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: scroll;
+}
+
+.mission {
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.mission *:not(button) {
+  margin: 0px;
+}
+
+.mission .syn {
+  font-size: 3em;
+  font-weight: bolder;
+  padding: 20px;
+  background: var(--lightgrey);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 65px;
+}
+
+.right-space {
+  margin-right: 5px;
+}

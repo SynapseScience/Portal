@@ -17,6 +17,10 @@
   height: calc(100% - var(--nav-height));
 }
 
+#root > main > main {
+  overflow-y: scroll;
+}
+
 .menu-item {
   display: flex;
   gap: 15px;
@@ -28,4 +32,12 @@
 .menu-item.disabled {
   color: grey;
   pointer-events: none;
+}
+
+#root > main > main > .cols.equal {
+  gap: 15px;
+}
+
+#root > main > main > .cols.equal > * {
+  flex-basis: 50%;
 }
