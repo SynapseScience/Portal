@@ -19,8 +19,8 @@ const App = () => {
   const [token, setToken] = useState(null);
 
   useEffect(() => {
-    synapse.on('connected', (user) => {
-      setUser(user);
+    synapse.on('connected', (userInfo) => {
+      setUser(userInfo);
       setToken(synapse.token);
     });
 
