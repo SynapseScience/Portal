@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-
-
+import AppCard from "../parts/AppCard";
 
 export default function Devkit({ me, token, session }) {
 
@@ -49,6 +48,23 @@ export default function Devkit({ me, token, session }) {
     }
   };
 
+  const [apps, setApps] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+       try {
+         const response = await fetch(`${session.apiUrl}/applications?author=${me.username}`);
+         if (!response.ok) {
+           throw new Error(`HTTP error! status: ${response.status}`);
+         }
+         const data = await response.json();
+         setApps(data.applications);
+       } catch (err) {
+         console.error(err)
+       }
+     })()
+  }, [me, token]);
+
   return <div className="cols equal">
     <div className="bubble">
       <h1>Vos Applications</h1>
@@ -56,6 +72,9 @@ export default function Devkit({ me, token, session }) {
       <ul>
         <li>Maximum de 3 applications par utilisateur</li>
       </ul>
+      <div>
+        {apps.map(app => <AppCard app={app} session={session} token={token} />)}
+      </div>
     </div>
     <div className="bubble">
       <div className="form bubble" style={{ border: "1px solid black" }}>
