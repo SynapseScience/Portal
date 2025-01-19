@@ -40,4 +40,4 @@ app.use('/', (req: express.Request, res: express.Response) => {
   res.sendFile(path.join(process.cwd(), "../client/dist/index.html"));
 });
 
-app.listen(8080);
+app.listen(5173);
