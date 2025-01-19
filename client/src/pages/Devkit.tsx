@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AppCard from "../parts/AppCard";
+import DevAppCard from "../parts/DevAppCard";
 import "./Devkit.css";
 
 export default function Devkit({ me, token, session }) {
@@ -85,7 +85,7 @@ export default function Devkit({ me, token, session }) {
       <h1>Vos Applications</h1>
       <p>N'importe qui peut soumettre son projet à l'intégration dans l'écosystème Synapse. Chaque soumission sera traitée par un conseil de modération, puis approuvée ou non. Des permissions de base seront alors accordées. Pour obtenir plus d'accès, il sera nécessaire de contacter le support par mail ou sur le serveur discord de la communauté.</p>
       <div id="devkit-results">
-        {apps.map(app => <AppCard app={app} session={session} token={token} />)}
+        {apps.map(app => <DevAppCard app={app} session={session} token={token} />)}
       </div>
     </div>
     <div className="bubble">{

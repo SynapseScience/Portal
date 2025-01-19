@@ -5,6 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 library.add(...Object.values(solidIcons).filter(icon => icon.iconName));
 
-export default function Icon({ name, outline }) {
+export default function Icon({ name }) {
   return <FontAwesomeIcon icon={name} />
 }
