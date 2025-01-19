@@ -84,9 +84,6 @@ export default function Devkit({ me, token, session }) {
     <div className="bubble">
       <h1>Vos Applications</h1>
       <p>N'importe qui peut soumettre son projet à l'intégration dans l'écosystème Synapse. Chaque soumission sera traitée par un conseil de modération, puis approuvée ou non. Des permissions de base seront alors accordées. Pour obtenir plus d'accès, il sera nécessaire de contacter le support par mail ou sur le serveur discord de la communauté.</p>
-      <ul>
-        <li>Maximum de 3 applications par utilisateur (pour l'instant)</li>
-      </ul>
       <div id="devkit-results">
         {apps.map(app => <AppCard app={app} session={session} token={token} />)}
       </div>
@@ -102,36 +99,47 @@ export default function Devkit({ me, token, session }) {
         <h1>Nouvelle Application</h1>
         <div className="field">
           <span className="field-title">Identifiant</span>
+          <span className="guide">3 à 25 caractères minuscules, points ou tirets</span>
           <input
             type="text"
             id="client_id"
             placeholder="myapplication123"
             value={formData.client_id}
             onChange={handleChange}
+            pattern="[a-z0-9._\-]{3,25}" 
+            minlength="3" 
+            maxlength="25" 
+            required
           />
         </div>
         <div className="field">
           <span className="field-title">Nom de l'application</span>
+          <span className="guide">40 caractères maximum</span>
           <input
             type="text"
             id="title"
             placeholder="Mon application Synapse"
             value={formData.title}
             onChange={handleChange}
+            maxlength="40"
+            required
           />
         </div>
         <div className="field">
           <span className="field-title">Description</span>
+          <span className="guide">200 caractères maximum</span>
           <textarea
             id="description"
             placeholder="Gestionnaire de bonbons au brocoli"
             value={formData.description}
             onChange={handleChange}
+            maxlength="200"
+            required
           />
         </div>
         <div className="field">
           <span className="field-title">Type</span>
-          <select id="type" value={formData.type} onChange={handleChange}>
+          <select id="type" value={formData.type} onChange={handleChange} required>
             <option value="outil">Outil</option>
             <option value="jeu">Jeu</option>
             <option value="plateforme">Plate-forme</option>
@@ -141,21 +149,26 @@ export default function Devkit({ me, token, session }) {
         </div>
         <div className="field">
           <span className="field-title">URIs</span>
+          <span className="guide">un lien valide par ligne</span>
           <textarea
             id="uris"
             placeholder="https://my-app.com&#10;https://cdn-123.dev"
             value={formData.uris}
             onChange={handleChange}
+            pattern="^(https?:\/\/[^\s]+)(\nhttps?:\/\/[^\s]+)*$"
+            required
           />
         </div>
         <div className="field">
-          <span className="field-title">Lien</span>
+          <span className="field-title">Page d'accueil</span>
+          <span className="guide">URL invalide</span>
           <input
-            type="text"
+            type="url"
             id="link"
             placeholder="https://my-app.com"
             value={formData.link}
             onChange={handleChange}
+            required
           />
         </div>
         <button onClick={handleSubmit}>Soumettre</button>

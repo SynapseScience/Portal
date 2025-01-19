@@ -4,3 +4,17 @@
   flex-direction: column;
   margin-top: 25px;
 }
+
+.field .guide {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 0.7em;
+  color: red;
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.field:has(input:invalid) .guide {
+  opacity: 1;
+}
