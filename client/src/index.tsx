@@ -9,8 +9,7 @@ import "./synapse-front.css";
 import Layout from './parts/Layout';
 import Home from './pages/Home';
 import Devkit from './pages/Devkit';
-import User from './pages/User';
-import Application from './pages/Application';
+import Profile from './pages/Profile';
 import Trade from './pages/Trade';
 
 const App = () => {
@@ -41,7 +40,7 @@ const App = () => {
         <Route path="/devkit" element={
           <Layout me={user} content={
             <Devkit 
-              me={user} 
+              me={user}
               token={token}
               session={synapse}
             />
@@ -50,7 +49,16 @@ const App = () => {
         <Route path="/trade" element={
           <Layout me={user} content={
             <Trade 
-              me={user} 
+              me={user}
+              token={token}
+              session={synapse}
+            />
+          } />
+        } />
+        <Route path="/profile" element={
+          <Layout me={user} content={
+            <Profile 
+              me={user}
               token={token}
               session={synapse}
             />
