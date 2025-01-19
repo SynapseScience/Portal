@@ -24,7 +24,7 @@ export default function Layout({ content, me }) {
         <MenuItem to="/social" icon="comments" text="Communauté" disabled={true} />
         <MenuItem to="/medias" icon="newspaper" text="Médias" disabled={true} />
         <MenuItem to="/events" icon="calendar-check" text="Évènements" disabled={true} />
-        <MenuItem to="/trade" icon="money-bill-trend-up" text="Échanges" />
+        <MenuItem to="/trade" icon="money-bill-trend-up" text="Échanges" disabled={true} />
         <MenuItem to="/devkit" icon="gear" text="Devkit" />
       </nav>
       <main>
