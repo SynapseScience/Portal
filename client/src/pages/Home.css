@@ -21,12 +21,6 @@
   width: 300px;
 }
 
-/* DISABLED FOR NOW */
-#root > main > main > nav > div > button {
-  background: grey;
-  cursor: not-allowed;
-}
-
 .results {
   display: flex;
   gap: 15px;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./UserCard.css";
 
 export default function UserCard({ user, me, session, token }) {
 
@@ -31,9 +32,8 @@ export default function UserCard({ user, me, session, token }) {
 
   if(me) {
     if(me.username == user.username) {
-      // button = <button className="inverted">Modifier mon profil</button>
+      button = <button className="inverted disabled">Modifier mon profil</button>
     } else {
-
       if(followLine) {
         button = <button onClick={follow}>{followLine}</button>
       } else {
@@ -59,9 +59,10 @@ export default function UserCard({ user, me, session, token }) {
       }</div>
     </div>
     <h1>{user.fullname}</h1>
-    <span><span>@{user.username}</span> - <span>{user.pronouns}</span></span>
-    <span>
-      <span>{followers}</span> abonnés - <span>{user.following.length}</span> abonnements</span>
+    <div className="details">
+      <span>@{user.username} - {user.pronouns}</span>
+      <span>{followers} abonnés - {user.following.length} abonnements</span>
+    </div>
     {button}
     <p>{user.description}</p>
   </div>

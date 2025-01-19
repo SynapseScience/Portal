@@ -1,0 +1,12 @@
+a.mention {
+  background: var(--lightgrey);
+  text-decoration: none;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 6px;
+  color: black;
+}
+
+a.mention:hover {
+  background: #dbdbdb;
+}

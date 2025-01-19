@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Mention from "./Mention";
 
 export default function AppCard({ app, session, token }) {
 
@@ -32,7 +33,9 @@ export default function AppCard({ app, session, token }) {
   
   return <div className="card">
     <h1>{app.title}</h1>
-    <span>#{app.client_id}</span>
+    <span>#{app.client_id} par {app.authors.map(author => 
+      <Mention username={author} />
+    )}</span>
     <div className="cols">
       <button onClick={like_closure(app.client_id)} className="inverted">{likes} 🖤</button>
       <button onClick={redirect_closure(app.link)}>Visiter</button>
