@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AppCard from "../parts/AppCard";
+import "./Devkit.css";
 
 export default function Devkit({ me, token, session }) {
 
@@ -42,7 +43,8 @@ export default function Devkit({ me, token, session }) {
       }
 
       const data = await res.json();
-      console.log(data)
+      setSecret(data.client_secret);
+      
     } catch (error) {
       console.error("Erreur lors de la soumission :", error.message);
     }
@@ -52,31 +54,50 @@ export default function Devkit({ me, token, session }) {
 
   useEffect(() => {
     (async () => {
-       try {
-         const response = await fetch(`${session.apiUrl}/applications?author=${me.username}`);
-         if (!response.ok) {
-           throw new Error(`HTTP error! status: ${response.status}`);
-         }
-         const data = await response.json();
-         setApps(data.applications);
-       } catch (err) {
-         console.error(err)
-       }
-     })()
+      try {
+         
+        let url = `${session.apiUrl}/drafts`
+         
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setApps(data);
+         
+      } catch (err) {
+        console.error(err)
+      }
+      
+    })()
   }, [me, token]);
+
+  const [client_secret, setSecret] = useState(null);
 
   return <div className="cols equal">
     <div className="bubble">
       <h1>Vos Applications</h1>
       <p>N'importe qui peut soumettre son projet à l'intégration dans l'écosystème Synapse. Chaque soumission sera traitée par un conseil de modération, puis approuvée ou non. Des permissions de base seront alors accordées. Pour obtenir plus d'accès, il sera nécessaire de contacter le support par mail ou sur le serveur discord de la communauté.</p>
       <ul>
-        <li>Maximum de 3 applications par utilisateur</li>
+        <li>Maximum de 3 applications par utilisateur (pour l'instant)</li>
       </ul>
-      <div>
+      <div id="devkit-results">
         {apps.map(app => <AppCard app={app} session={session} token={token} />)}
       </div>
     </div>
-    <div className="bubble">
+    <div className="bubble">{
+      client_secret ? 
+      <div className="form bubble" style={{ border: "1px solid black" }}>
+        <h1>Parfait !</h1>
+        <p>Votre application a bien été enregistrée, en attente de validation. Contactez la modération pour faire avancer votre demande ! En attendant, n'oubliez pas de conserver précieusement votre client_secret pour cette application : <code>{client_secret}</code></p>
+      </div>
+      :
       <div className="form bubble" style={{ border: "1px solid black" }}>
         <h1>Nouvelle Application</h1>
         <div className="field">
@@ -139,6 +160,6 @@ export default function Devkit({ me, token, session }) {
         </div>
         <button onClick={handleSubmit}>Soumettre</button>
       </div>
-    </div>
+    }</div>
   </div>;
 }

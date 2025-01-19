@@ -1,0 +1,6 @@
+#devkit-results {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  margin-top: 25px;
+}
