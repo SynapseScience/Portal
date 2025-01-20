@@ -1,0 +1,12 @@
+#my-apps {
+  display: flex;
+  gap: 15px;
+  overflow-x: scroll;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.bubble.right {
+  width: calc(100% - 552px)
+}

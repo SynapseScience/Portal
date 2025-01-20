@@ -61,6 +61,7 @@ const App = () => {
               me={user}
               token={token}
               session={synapse}
+              setMe={setUser}
             />
           } />
         } />

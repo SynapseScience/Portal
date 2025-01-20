@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./UserCard.css";
 
-export default function UserCard({ user, me, session, token }) {
+export default function UserCard({ user, me, session, token, setMe, setUser }) {
 
-  let button = <></>;
   if(!user) return <></>;
+  let bttn = <button>Chargement...</button>;
 
+  const [edition, setEdition] = useState(false);
   const [followers, setFollowers] = useState(user.followers.length);
   const [followLine, setFollowline] = useState(null);
 
@@ -30,23 +31,121 @@ export default function UserCard({ user, me, session, token }) {
     }
   }
 
+  const editProfile = () => {
+    setEdition(true);
+  }
+
+  const [formData, setFormData] = useState({
+    fullname: "",
+    pronouns: "",
+    description: "",
+  });
+
   if(me) {
-    if(me.username == user.username) {
-      button = <button className="inverted disabled">Modifier mon profil</button>
-    } else {
+    if(me.username !== user.username) {
       if(followLine) {
-        button = <button onClick={follow}>{followLine}</button>
+        bttn = <button onClick={follow}>{followLine}</button>
       } else {
         if(me.following.includes(user.username)) {
-          button = <button onClick={follow}>Ne plus suivre</button>
+          bttn = <button onClick={follow}>Ne plus suivre</button>
         } else {
-          button = <button onClick={follow}>Commencer à suivre</button>
+          bttn = <button onClick={follow}>Commencer à suivre</button>
         }
       }
+    } else bttn = <button 
+      className="inverted" 
+      onClick={editProfile}>Modifier mon profil</button>;
+
+    if(!edition && formData.fullname == "") setFormData({
+      fullname: me.fullname,
+      description: me.description,
+      pronouns: me.pronouns
+    })
+  }
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const submitProfile = async () => {
+    try {
+      const res = await fetch(session.apiUrl + "/me", {
+        method: "PUT",
+        headers: {
+          "Authorization": "Bearer " + token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      } else {
+        const data = await res.json();
+        setEdition(false);
+        setMe(data.user);
+        setUser(data.user);
+      }
+
+    } catch (error) {
+      console.error("Erreur lors de la soumission :", error.message);
     }
   }
 
-  return <div className="profile bubble"
+  return edition ? 
+    <div className="profile form bubble"
+      style={{ border: "1px solid black "}}>
+
+      <div class="field">
+        <span class="field-title">Nom d'usage</span>
+        <span class="guide">40 caractères maximum</span>
+        <input 
+          type="text" 
+          id="fullname" 
+          placeholder="Richard Feynman" 
+          maxlength="40"
+          value={formData.fullname}
+          onChange={handleChange}
+          required 
+        />
+      </div>
+
+      <div class="field">
+        <span class="field-title">Pronoms</span>
+        <select 
+          id="pronouns"
+          required
+          value={formData.pronouns}
+          onChange={handleChange} >
+          <option value="il">il</option>
+          <option value="elle">elle</option>
+          <option value="iel">iel</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <span class="field-title">Description</span>
+        <span class="guide">200 caractères maximum</span>
+        <textarea 
+          type="text" 
+          id="description" 
+          placeholder="Addict aux monoxyde de dihydrogène" 
+          maxlength="200"
+          value={formData.description}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div class="buttons">
+        <button onClick={submitProfile}>Modifier</button>
+      </div>
+    </div>
+    : 
+    <div className="profile bubble"
     style={{ border: "1px solid black "}}>
     <div className="cols" style={{ gap: "20px" }} >
       <img className="avatar" src={user.avatar && user.avatar.length ? user.avatar :
@@ -63,7 +162,7 @@ export default function UserCard({ user, me, session, token }) {
       <span>@{user.username} - {user.pronouns}</span>
       <span>{followers} abonnés - {user.following.length} abonnements</span>
     </div>
-    {button}
+    {bttn}
     <p>{user.description}</p>
   </div>
 
