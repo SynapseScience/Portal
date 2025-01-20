@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Mention from "./Mention";
+import Icon from "./Icon";
 
-export default function AppCard({ app, session, token }) {
+export default function AppCard({ app, me, session, token }) {
 
   const redirect_closure = (url: string): Function => {
     function f() {
@@ -12,6 +13,11 @@ export default function AppCard({ app, session, token }) {
   };
 
   const [likes, setLikes] = useState(app.stargazers.length);
+  const [liked, setLiked] = useState(false);
+
+  if(likes == app.stargazers.length) {
+    if(!liked && me && app.stargazers.includes(me.username)) setLiked(true);
+  } 
   
   const like_closure = (client_id: string): Function => {
     async function f() {
@@ -22,9 +28,11 @@ export default function AppCard({ app, session, token }) {
         }
       })
 
-      const data = await response.json();
-      if(data.application) {
+      if(response.ok) {
+        const data = await response.json();
+
         setLikes(data.application.stargazers.length)
+        setLiked(data.application.stargazers.includes(me.username));
       }
     }
 
@@ -33,11 +41,13 @@ export default function AppCard({ app, session, token }) {
   
   return <div className="card">
     <h1>{app.title}</h1>
-    <span>#{app.client_id} par {app.authors.map(author => 
+    <span>#{app.client_id} par {app.authors.map((author: string) => 
       <Mention username={author} />
     )}</span>
     <div className="cols">
-      <button onClick={like_closure(app.client_id)} className="inverted">{likes} 🖤</button>
+      <button onClick={like_closure(app.client_id)} className="inverted">{likes} {
+        <Icon name="heart" outline={!liked} />
+      }</button>
       <button onClick={redirect_closure(app.link)}>Visiter</button>
     </div>
     <p>{app.description}</p>
