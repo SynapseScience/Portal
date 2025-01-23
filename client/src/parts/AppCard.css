@@ -1,0 +1,45 @@
+.card {
+  --banner-height: 70px;
+  position: relative;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  width: 280px;
+  flex: 0 0 auto;
+  overflow: clip;
+}
+
+.card:has(.banner) {
+  padding-top: calc(var(--banner-height) + 20px);
+}
+
+.card .cols:has(button) {
+  display: flex;
+  gap: 10px;
+}
+
+.card .cols:has(button) > * {
+  flex: 1 1;
+}
+
+.card > .banner {
+  height: calc(var(--banner-height) - 40px);
+  background: var(--lightgrey);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: calc(100% - 40px);
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.card > .banner svg {
+  padding: 10px;
+  background: white;
+  border-radius: 50%;
+}

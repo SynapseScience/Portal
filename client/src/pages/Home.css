@@ -19,10 +19,18 @@
 
 #root > main > main > nav > div > input {
   width: 300px;
+  outline: var(--border-width) solid var(--lightgrey);
 }
 
 .results {
   display: flex;
   gap: 15px;
   padding: 0px 50px;
+  overflow-y: scroll;
+  height: calc(100% - 150px);
+  flex-wrap: wrap;
+}
+
+#root > main > main:has(.results) {
+  overflow-y: clip;
 }

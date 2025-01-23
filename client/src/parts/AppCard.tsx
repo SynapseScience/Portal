@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Mention from "./Mention";
 import Icon from "./Icon";
+import "./AppCard.css";
 
 export default function AppCard({ app, me, session, token }) {
 
@@ -39,9 +40,13 @@ export default function AppCard({ app, me, session, token }) {
     return f;
   }
   
-  return <div className="card">
+  return <div className="card outline">
+    <div className="banner">
+      {app.permissions.length > 0 ? <Icon name="user-lock" /> : <></>}
+      {app.permissions.includes("economy") ? <Icon name="coins" /> : <></>}
+    </div>
     <h1>{app.title}</h1>
-    <span>#{app.client_id} par {app.authors.map((author: string) => 
+    <span>#{app.client_id}{app.authors.length > 0 ? " par " : ""}{app.authors.map((author: string) => 
       <Mention username={author} />
     )}</span>
     <div className="cols">

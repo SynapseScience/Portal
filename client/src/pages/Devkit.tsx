@@ -90,12 +90,12 @@ export default function Devkit({ me, token, session }) {
     </div>
     <div className="bubble">{
       client_secret ? 
-      <div className="form bubble" style={{ border: "1px solid black" }}>
+      <div className="form bubble outline">
         <h1>Parfait !</h1>
         <p>Votre application a bien été enregistrée, en attente de validation. Contactez la modération pour faire avancer votre demande ! En attendant, n'oubliez pas de conserver précieusement votre client_secret pour cette application : <code>{client_secret}</code></p>
       </div>
       :
-      <div className="form bubble" style={{ border: "1px solid black" }}>
+      <div className="form bubble outline">
         <h1>Nouvelle Application</h1>
         <div className="field">
           <span className="field-title">Identifiant</span>

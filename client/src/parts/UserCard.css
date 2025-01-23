@@ -33,7 +33,6 @@
   flex-wrap: wrap;
   width: calc(100% - 20px);
   padding: 10px;
-  background: var(--lightgrey);
   border-radius: 10px;
 }
 

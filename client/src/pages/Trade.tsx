@@ -4,7 +4,7 @@ import AppCard from "../parts/AppCard";
 import "./Trade.css";
 
 function Mission({ reward, description, action=() => {}, author }) {
-  return <div className="mission cols" style={{ gap: "15px" }}>
+  return <div className="mission cols outline" style={{ gap: "15px" }}>
     <span className="syn">{reward}</span>
     <div>
       <h3>#{author}</h3>

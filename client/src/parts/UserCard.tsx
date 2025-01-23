@@ -97,8 +97,7 @@ export default function UserCard({ user, me, session, token, setMe, setUser }) {
   }
 
   return edition ? 
-    <div className="profile form bubble"
-      style={{ border: "1px solid black "}}>
+    <div className="profile form bubble outline">
 
       <div class="field">
         <span class="field-title">Nom d'usage</span>
@@ -145,12 +144,11 @@ export default function UserCard({ user, me, session, token, setMe, setUser }) {
       </div>
     </div>
     : 
-    <div className="profile bubble"
-    style={{ border: "1px solid black "}}>
+    <div className="profile bubble outline">
     <div className="cols" style={{ gap: "20px" }} >
       <img className="avatar" src={user.avatar && user.avatar.length ? user.avatar :
       `${session.apiUrl.replaceAll('/api', '')}/assets/user.png` } />
-      <div className="badges">{
+      <div className="badges outline">{
         user.badges.map((badge: string) => {
           return <img
             src={`${window.location.origin}/static/badges/${badge}.png`} />

@@ -6,6 +6,11 @@ body, html {
   --nav-height: 100px;
   background: black;
   color: white;
+  --border-width: 2px;
+}
+
+.outline {
+  border: var(--border-width) solid var(--lightgrey);
 }
 
 #root {
