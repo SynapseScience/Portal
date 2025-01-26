@@ -10,11 +10,18 @@ body, html {
 }
 
 .outline {
-  border: var(--border-width) solid var(--lightgrey);
+  /* border: var(--border-width) solid var(--lightgrey); */
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+button {
+  box-shadow: 0 0 10px var(--lightgrey);
 }
 
 #root {
-  height: 100%
+  height: 100%;
+  background: rgb(2,0,36);
+  background: linear-gradient(to bottom right, #1b1e43 0%, #020310 31%, #000000 100%);
 }
 
 nav {
@@ -48,4 +55,8 @@ code {
 button.disabled {
   background: grey;
   cursor: not-allowed;
+}
+
+*:focus {
+  outline: none;
 }

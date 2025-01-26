@@ -19,7 +19,6 @@
 
 #root > main > main > nav > div > input {
   width: 300px;
-  outline: var(--border-width) solid var(--lightgrey);
 }
 
 .results {
@@ -27,7 +26,7 @@
   gap: 15px;
   padding: 0px 50px;
   overflow-y: scroll;
-  height: calc(100% - 150px);
+  height: calc(100% - 100px);
   flex-wrap: wrap;
 }
 

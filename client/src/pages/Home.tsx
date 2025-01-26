@@ -44,10 +44,11 @@ export default function Home({ me, token, session }) {
     <nav>
       <h1>Applications</h1>
       <div>
-        <button className="inverted"><Icon name="heart" /></button>
-        <button className="inverted"><Icon name="filter" /></button>
-        <button className="inverted"><Icon name="sort" /></button>
+        <button className="inverted outline"><Icon name="heart" /></button>
+        <button className="inverted outline"><Icon name="filter" /></button>
+        <button className="inverted outline"><Icon name="sort" /></button>
         <input
+          className="outline"
           placeholder="Rechercher une application"
           type="text"
           value={searchQuery}

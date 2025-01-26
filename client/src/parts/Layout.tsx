@@ -12,6 +12,8 @@ export default function Layout({ content, me }) {
   return <>
     <nav>
       <h1 id="title">Synapse</h1>
+      <a className="disabled">À propos et mentions légales</a>
+      <a className="disabled">Soutenir</a>
       <Button
         me={me}
         host="https://synapse-api.replit.app"

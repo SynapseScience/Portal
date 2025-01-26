@@ -10,6 +10,14 @@
   align-items: flex-start;
 }
 
+#root > nav {
+  gap: 30px;
+}
+
+a.disabled {
+  color: grey;
+}
+
 #root > main {
   padding: 0px;
   display: flex;

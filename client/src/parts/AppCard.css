@@ -1,7 +1,6 @@
 .card {
   --banner-height: 70px;
   position: relative;
-  padding: 20px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -9,10 +8,12 @@
   width: 280px;
   flex: 0 0 auto;
   overflow: clip;
+  background-size: auto 50%;
+  background-position-x: 50%;
 }
 
-.card:has(.banner) {
-  padding-top: calc(var(--banner-height) + 20px);
+.card:not(.devkit) {
+  height: 360px;
 }
 
 .card .cols:has(button) {
@@ -26,7 +27,6 @@
 
 .card > .banner {
   height: calc(var(--banner-height) - 40px);
-  background-color: var(--lightgrey);
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
@@ -46,7 +46,24 @@
   border-radius: 50%;
 }
 
+.card.devkit {
+  padding: 20px;
+}
+
 .card.devkit h1 svg {
   color: #bababa;
   margin-right: 7px;
+}
+
+.card > .details {
+  padding: 20px;
+  padding-top: var(--banner-height);
+  background: linear-gradient(to top, white 65%, transparent 100%);
+  position: absolute;
+  top: 0px;
+  height: 100%;
+}
+
+.card > .details > span {
+  font-size: 0.9em;
 }
