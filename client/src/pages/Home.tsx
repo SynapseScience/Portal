@@ -6,11 +6,12 @@ import Icon from "../parts/Icon";
 
 export default function Home({ me, token, session }) {
   const [apps, setApps] = useState([]);
+  const [searchQuery, setQuery] = useState("");
 
   useEffect(() => {
     (async () => {
        try {
-         const response = await fetch(session.apiUrl + '/applications');
+         const response = await fetch(session.apiUrl + '/applications?tags=indépendant,francophone');
          if (!response.ok) {
            throw new Error(`HTTP error! status: ${response.status}`);
          }
@@ -21,20 +22,46 @@ export default function Home({ me, token, session }) {
        }
      })()
   }, []);
+
+  const search = async () => {
+    try {
+      let url = session.apiUrl + '/applications?tags=indépendant,francophone';
+      url += `&search=${encodeURIComponent(searchQuery)}`;
+      
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      } else {
+        const data = await response.json();
+        setApps(data.applications);
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
   
   return <>
-      <nav>
-        <h1>Applications</h1>
-        <div>
-          <button className="inverted"><Icon name="heart" /></button>
-          <button className="inverted"><Icon name="filter" /></button>
-          <button className="inverted"><Icon name="sort" /></button>
-          <input placeholder="Rechercher une application" type="text" />
-          <button><Icon name="magnifying-glass" /></button>
-        </div>
-      </nav>
-      <div class="results"> {
-        apps.map(app => <AppCard app={app} me={me} session={session} token={token} />)
-      }</div>
+    <nav>
+      <h1>Applications</h1>
+      <div>
+        <button className="inverted"><Icon name="heart" /></button>
+        <button className="inverted"><Icon name="filter" /></button>
+        <button className="inverted"><Icon name="sort" /></button>
+        <input
+          placeholder="Rechercher une application"
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") search();
+          }}
+        />
+        <button onClick={search}><Icon name="magnifying-glass" /></button>
+      </div>
+    </nav>
+    <div className="results">{
+      apps.map(app => <AppCard key={app.id} app={app} me={me} session={session} token={token} />)
+    }</div>
   </>;
+
 }
