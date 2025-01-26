@@ -1,12 +1,13 @@
 a.mention {
-  background: var(--lightgrey);
+  border: var(--border-width) solid var(--lightgrey);
   text-decoration: none;
   cursor: pointer;
   padding: 2px 5px;
   border-radius: 6px;
   color: black;
+  background: white;
 }
 
 a.mention:hover {
-  background: #dbdbdb;
+  background: var(--lightgrey);
 }
