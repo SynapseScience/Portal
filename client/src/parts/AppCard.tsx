@@ -41,18 +41,23 @@ export default function AppCard({ app, me, session, token }) {
   }
   
   return <div className="card outline">
-    <div className="banner">
+    <div className="banner" style={{
+      backgroundImage: app.thumbnail ? `url(${app.thumbnail})` : "url(none)"
+    }}>
+      {app.tags.includes("partenaire") ? <Icon name="handshake" /> : <></>}
       {app.permissions.length > 0 ? <Icon name="user-lock" /> : <></>}
       {app.permissions.includes("economy") ? <Icon name="coins" /> : <></>}
     </div>
     <h1>{app.title}</h1>
-    <span>#{app.client_id}{app.authors.length > 0 ? " par " : ""}{app.authors.map((author: string) => 
-      <Mention username={author} />
-    )}</span>
+    <span>#{app.client_id}{app.authors.length > 0 ? " par " : ""}{app.authors.map((author: string) => {
+      if(author.startsWith("$")) {
+        return author.replace("$", "").trim();
+      } else return <Mention username={author} />;
+    })}</span>
     <div className="cols">
-      <button onClick={like_closure(app.client_id)} className="inverted">{likes} {
+      {me && <button onClick={like_closure(app.client_id)} className="inverted">{likes} {
         <Icon name="heart" outline={!liked} />
-      }</button>
+      }</button>}
       <button onClick={redirect_closure(app.link)}>Visiter</button>
     </div>
     <p>{app.description}</p>
