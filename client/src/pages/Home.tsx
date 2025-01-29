@@ -4,7 +4,7 @@ import AppCard from "../parts/AppCard";
 import "./Home.css";
 import Icon from "../parts/Icon";
 
-export default function Home({ me, token, session }) {
+export default function Home({ setPopup, me, token, session }) {
   const [apps, setApps] = useState([]);
   const [searchQuery, setQuery] = useState("");
 
@@ -44,7 +44,7 @@ export default function Home({ me, token, session }) {
     <nav>
       <h1>Applications</h1>
       <div>
-        <button className="inverted outline"><Icon name="heart" /></button>
+        <button className="inverted outline" ><Icon name="heart" /></button>
         <button className="inverted outline"><Icon name="filter" /></button>
         <button className="inverted outline"><Icon name="sort" /></button>
         <input

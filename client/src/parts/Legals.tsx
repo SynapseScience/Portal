@@ -1,0 +1,12 @@
+import React from "react";
+
+export default function Legals() {
+  return <>
+    <h1 id="mentionslgales">Mentions légales</h1>
+    <p>Le coeur de l'écosystème Synapse, incluant le portail et l'API, est conforme au Règlement Général de la Protection des Données (RGPD). La référence OpenAPI détaille les points de contact pour toute demande d'accès, de rectification ou de suppression de données. Synapse collecte l'email et les pronoms de ses utilisateurs, et utilise un système de session utilisant un cookie de connexion temporaire d'une durée de 5h, strictement nécessaire au fonctionnement technique du site.</p>
+    <p>Les applications, événements et médias recensés et enregistrés dans l'écosystème Synapse sont sous la responsabilité exclusive de leurs créateurs. Nous mettons en place des efforts rigoureux pour ne conserver que les contenus conformes aux normes éthiques et légales, mais ne pouvons garantir l'exhaustivité de cette démarche. Par conséquent, Synapse ne pourra être tenu responsable des contenus produits ou diffusés par les utilisateurs de la plateforme, ni des conséquences de leur utilisation.</p>
+    <p>Tous les contenus pour ésents sur ce site sont la propriété de Synapse ou de tiers ayant autorisé leur utilisation. Toute reproduction, modification, publication, ou adaptation des éléments du site est permise uniquement sous les conditions de la licence GNU-GPL. Synapse ne peut être tenu responsable des dommages directs ou indirects causés au matériel de l'utilisateur. Tout litige en relation avec l’utilisation du site ou de l'API de Synapse est soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de Nice.</p>
+    <p>L'entièreté du code est déposé sur GitHub et édité avec Replit, puis déployé via Cloudflare, qui sont des entreprises basées aux États-Unis. Nous travaillons à réduire cette dépendance en explorant des solutions européennes. Tous nos services sont vérifiés par Green Web Foundation. Les données sur la consommation énergétique du réseau seront fournies à la demande des utilisateurs. </p>
+    <p>Le portail et l'API sont tous deux édités par <a href="mailto:matheo@paradoxe.tech">M. Mathéo Tripnaux-Moreau</a>, personne physique résidant en France, et herbergés par Replit (siège social à Foster City, CA). Si vous rencontrez des problèmes d’accessibilité, veuillez nous contacter ou ouvrir une erreur sur le dépôt Git du service utilisé.</p>
+  </>
+}

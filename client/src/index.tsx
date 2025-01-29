@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Session } from "./synapse-front.mjs";
 
 import "./index.css";
-import "./synapse-front.css";
 
 import Layout from './parts/Layout';
 import Home from './pages/Home';
@@ -16,6 +15,7 @@ const App = () => {
   const synapse = new Session("https://synapse-api.replit.app/api");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [popup, setPopup] = useState(null);
 
   useEffect(() => {
     synapse.on('connected', (userInfo) => {
@@ -29,8 +29,13 @@ const App = () => {
   return <Router>
       <Routes>
         <Route path="/" element={
-          <Layout me={user} content={
+          <Layout 
+            popup={popup} 
+            setPopup={setPopup}
+            me={user} 
+            content={
             <Home 
+              setPopup={setPopup}
               me={user} 
               token={token}
               session={synapse}
@@ -38,7 +43,11 @@ const App = () => {
           } />
         } />
         <Route path="/devkit" element={
-          <Layout me={user} content={
+          <Layout 
+            popup={popup} 
+            setPopup={setPopup}
+            me={user} 
+            content={
             <Devkit 
               me={user}
               token={token}
@@ -47,7 +56,11 @@ const App = () => {
           } />
         } />
         <Route path="/trade" element={
-          <Layout me={user} content={
+          <Layout 
+            popup={popup} 
+            setPopup={setPopup}
+            me={user} 
+            content={
             <Trade 
               me={user}
               token={token}
@@ -56,7 +69,11 @@ const App = () => {
           } />
         } />
         <Route path="/profile" element={
-          <Layout me={user} content={
+          <Layout 
+            popup={popup}
+            setPopup={setPopup}
+            me={user} 
+            content={
             <Profile 
               me={user}
               token={token}
