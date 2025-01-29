@@ -56,7 +56,7 @@ export default function AppCard({ app, me, session, token }) {
         } else return <Mention username={author} />;
       })}</span>
       <div className="cols">
-        {me && <button onClick={like_closure(app.client_id)} className="inverted">{likes} {
+        {me && <button onClick={like_closure(app.client_id)} className="inverted outline">{likes} {
           <Icon name="heart" outline={!liked} />
         }</button>}
         <button onClick={redirect_closure(app.link)}>Visiter</button>

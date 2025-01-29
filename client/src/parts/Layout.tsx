@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../synapse-button";
 import Icon from "./Icon";
 import "./Layout.css";
+import Legals from "./Legals";
 
 function MenuItem({ icon, text, to, disabled = false }) {
   return <a href={to} className={"menu-item" + (disabled ? " disabled" : "")}>
     <Icon name={icon} outline={false} /> {text}</a>
 }
 
-export default function Layout({ content, me }) {
+export default function Layout({ popup, setPopup, content, me }) {
+  
   return <>
+    <div id="screen" className={popup ? "" : "disabled"} onClick={() => setPopup(null)}/>
     <nav>
       <h1 id="title">Synapse</h1>
-      <a className="disabled">À propos et mentions légales</a>
+      <a onClick={() => setPopup(<Legals />)}>À propos et mentions légales</a>
       <a className="disabled">Soutenir</a>
       <Button
         me={me}
@@ -33,5 +36,6 @@ export default function Layout({ content, me }) {
         { content }
       </main>
     </main>
+    <div id="popup" className={"bubble outline " + (popup ? "" : "disabled")}>{popup}</div>
   </>;
 }

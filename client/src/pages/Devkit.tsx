@@ -88,7 +88,7 @@ export default function Devkit({ me, token, session }) {
         {apps.map(app => <DevAppCard app={app} session={session} token={token} />)}
       </div>
     </div>
-    <div className="bubble">{
+    <div className="bubble transparent">{
       client_secret ? 
       <div className="form bubble outline">
         <h1>Parfait !</h1>

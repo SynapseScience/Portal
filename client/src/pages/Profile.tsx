@@ -47,7 +47,7 @@ export default function Profile({ me, session, token, setMe }) {
   }, [username])
 
   return user ? <div className="cols" style={{ gap: "0px" }}>
-    <div className="bubble">
+    <div className="bubble transparent">
       <UserCard 
         user={user} 
         me={me} 
@@ -57,7 +57,7 @@ export default function Profile({ me, session, token, setMe }) {
         setUser={setUser} 
       />
     </div>
-    <div className="bubble right" style={{ paddingLeft: "0px" }}>
+    <div className="bubble right transparent" style={{ paddingLeft: "0px" }}>
       <h1>Applications</h1>
       <div id="my-apps">
         { apps.length > 0 ? apps.map((app) => <AppCard 

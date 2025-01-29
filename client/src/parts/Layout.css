@@ -14,10 +14,6 @@
   gap: 30px;
 }
 
-a.disabled {
-  color: grey;
-}
-
 #root > main {
   padding: 0px;
   display: flex;
@@ -26,6 +22,9 @@ a.disabled {
 }
 
 #root > main > main {
+  color: var(--font-color-dark);
+  background: var(--background-main);
+  border-top-left-radius: 35px;
   overflow-y: scroll;
 }
 
@@ -33,13 +32,8 @@ a.disabled {
   display: flex;
   gap: 15px;
   align-items: center;
-  color: white;
+  color: var(--font-color);
   text-decoration: none;
-}
-
-.menu-item.disabled {
-  color: grey;
-  pointer-events: none;
 }
 
 #root > main > main > .cols.equal {
@@ -48,4 +42,40 @@ a.disabled {
 
 #root > main > main > .cols.equal > * {
   flex-basis: 50%;
+}
+
+#popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  z-index: 99;
+  transition: opacity 50ms ease-in-out, scale 200ms ease-in-out;
+  opacity: 1;
+  scale: 1;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+#popup.disabled {
+  opacity: 0;
+  scale: 0.8;
+  transform: translate(-50%, -50%);
+  transition: none;
+  pointer-events: none;
+}
+
+#screen {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  z-index: 98;
+  transition: all 300ms ease-in-out;
+}
+
+#screen.disabled {
+  pointer-events: none;
+  backdrop-filter: none;
 }

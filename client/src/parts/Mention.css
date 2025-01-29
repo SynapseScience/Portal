@@ -1,13 +1,12 @@
 a.mention {
-  border: var(--border-width) solid var(--lightgrey);
   text-decoration: none;
   cursor: pointer;
   padding: 2px 5px;
   border-radius: 6px;
-  color: black;
-  background: white;
+  color: var(--font-color);
+  background: linear-gradient(to right, #1b1e43, #000);
 }
 
 a.mention:hover {
-  background: var(--lightgrey);
+  text-decoration: underline;
 }
