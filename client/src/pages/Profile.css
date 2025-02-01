@@ -1,7 +1,7 @@
 #my-apps {
   display: flex;
   gap: 15px;
-  overflow-x: scroll;
+  overflow-x: auto;
   flex-wrap: nowrap;
   width: 100%;
   margin-top: 15px;
@@ -9,4 +9,12 @@
 
 .bubble.right {
   width: calc(100% - 552px)
+}
+
+code.block {
+  padding: 15px;
+  display: block;
+  background: var(--background-main);
+  border-radius: 5px;
+  margin: 5px 0;
 }

@@ -46,17 +46,30 @@ export default function Profile({ me, session, token, setMe }) {
     
   }, [username])
 
-  return user ? <div className="cols" style={{ gap: "0px" }}>
-    <div className="bubble transparent">
-      <UserCard 
+  return <div className="cols" style={{ gap: "0px" }}>
+    <div className="bubble transparent">{
+      user ? <UserCard 
         user={user} 
         me={me} 
         session={session} 
         token={token} 
         setMe={setMe} 
         setUser={setUser} 
-      />
-    </div>
+      /> 
+      :
+      <div className="bubble outline" style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px"
+      }}>
+        <h1>Utilisateur inconnu</h1>
+        <span>Cette personne n'est pas encore enregistrée dans l'écosystème Synapse ! Invitez-la à rejoidre en partageant ce lien :</span>
+        <code className="block">
+          <a href={session.apiUrl.replace("fr/api", "fr") + "/oauth/register?username=" + username}
+          >{session.apiUrl.replace("fr/api", "fr")}/oauth/register?username={username}</a>
+        </code>
+      </div>
+    }</div>
     <div className="bubble right transparent" style={{ paddingLeft: "0px" }}>
       <h1>Applications</h1>
       <div id="my-apps">
@@ -68,10 +81,5 @@ export default function Profile({ me, session, token, setMe }) {
         /> ) : <span>Cet utilisateur n'a pas d'applications vérifiées.</span> }
       </div>
     </div>
-  </div> : <div className="bubble">{ 
-    tried && <>
-      <h1>Utilisateur non trouvé /:</h1>
-      <p>Conseil de pro : tous les noms d'utilisateur sont en minuscule !</p>
-    </>
-  }</div>
+  </div>
 }

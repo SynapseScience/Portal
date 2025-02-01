@@ -4,7 +4,7 @@ import "./UserCard.css";
 export default function UserCard({ user, me, session, token, setMe, setUser }) {
 
   if(!user) return <></>;
-  let bttn = <button>Chargement...</button>;
+  let bttn = <></>;
 
   const [edition, setEdition] = useState(false);
   const [followers, setFollowers] = useState(user.followers.length);
@@ -47,13 +47,17 @@ export default function UserCard({ user, me, session, token, setMe, setUser }) {
         bttn = <button onClick={follow}>{followLine}</button>
       } else {
         if(me.following.includes(user.username)) {
-          bttn = <button onClick={follow}>Ne plus suivre</button>
+          bttn = <button 
+            className="outline" 
+            onClick={follow}>Ne plus suivre</button>
         } else {
-          bttn = <button onClick={follow}>Commencer à suivre</button>
+          bttn = <button 
+            className="outline" 
+            onClick={follow}>Commencer à suivre</button>
         }
       }
     } else bttn = <button 
-      className="inverted" 
+      className="inverted outline" 
       onClick={editProfile}>Modifier mon profil</button>;
 
     if(!edition && formData.fullname == "") setFormData({
@@ -147,7 +151,7 @@ export default function UserCard({ user, me, session, token, setMe, setUser }) {
     <div className="profile bubble outline">
     <div className="cols" style={{ gap: "20px" }} >
       <img className="avatar" src={user.avatar && user.avatar.length ? user.avatar :
-      `${session.apiUrl.replaceAll('/api', '')}/assets/user.png` } />
+      `${session.apiUrl.replace('fr/api', 'fr')}/assets/user.png` } />
       <div className="badges outline">{
         user.badges.map((badge: string) => {
           return <img
