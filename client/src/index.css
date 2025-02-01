@@ -61,7 +61,8 @@ code {
 }
 
 button.disabled {
-  background: grey;
+  background: gray;
+  color: gray !important;
   cursor: not-allowed;
 }
 
@@ -173,8 +174,8 @@ input[type="checkbox"] {
 }
 
 button.inverted {
-  background: white !important;
-  color: var(--font-color-dark) !important;
+  background: white;
+  color: var(--font-color-dark);
 }
 
 h1#title {
