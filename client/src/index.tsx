@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Devkit from './pages/Devkit';
 import Profile from './pages/Profile';
 import Trade from './pages/Trade';
+import AppPage from './pages/AppPage';
 
 const App = () => {
   const synapse = new Session("https://api.connectome.fr/api");
@@ -79,6 +80,19 @@ const App = () => {
               token={token}
               session={synapse}
               setMe={setUser}
+            />
+          } />
+        } />
+        <Route path="/app" element={
+          <Layout 
+            popup={popup}
+            setPopup={setPopup}
+            me={user} 
+            content={
+            <AppPage 
+              me={user}
+              token={token}
+              session={synapse}
             />
           } />
         } />

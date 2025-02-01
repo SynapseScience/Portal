@@ -5,9 +5,9 @@ import "./AppCard.css";
 
 export default function AppCard({ app, me, session, token }) {
 
-  const redirect_closure = (url: string): Function => {
+  const redirect_closure = (client_id: string): Function => {
     function f() {
-      window.open(url, "_blank");
+      window.open(`${window.location.origin}/app?id=${client_id}`, "_self");
     }
 
     return f;
@@ -59,7 +59,7 @@ export default function AppCard({ app, me, session, token }) {
         {me && <button onClick={like_closure(app.client_id)} className="inverted outline">{likes} {
           <Icon name="heart" outline={!liked} />
         }</button>}
-        <button onClick={redirect_closure(app.link)}>Visiter</button>
+        <button onClick={redirect_closure(app.client_id)}>Visiter</button>
       </div>
       <p>{app.description}</p>
     </div>

@@ -1,0 +1,44 @@
+.app {
+  max-width: 350px;
+}
+
+.tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.tags > .tag {
+  padding: 5px 15px;
+  border-radius: 5px;
+  background: var(--font-color-dark);
+  color: var(--font-color);
+}
+
+.app > .details > .cols {
+  gap: 10px;
+}
+
+.app > .details > .cols > button {
+  width: 100%;
+}
+
+.specs {
+  margin: 15px 0;
+}
+
+.specs > div {
+  display: flex; 
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.app span {
+  display: block;
+}
+
+.app-date {
+  font-style: italic;
+  color: var(--font-grey);
+}
