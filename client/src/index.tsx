@@ -12,7 +12,7 @@ import Profile from './pages/Profile';
 import Trade from './pages/Trade';
 
 const App = () => {
-  const synapse = new Session("https://synapse-api.replit.app/api");
+  const synapse = new Session("https://api.connectome.fr/api");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [popup, setPopup] = useState(null);

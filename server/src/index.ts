@@ -7,7 +7,7 @@ import process from "process";
 // retrieve the environment variables from .env
 dotenv.config();
 
-const SYNAPSE_API = "https://synapse-api.replit.app/api";
+const SYNAPSE_API = "https://api.connectome.fr/api";
 const CLIENT_ID = process.env.SYNAPSE_ID;
 const CLIENT_SECRET = process.env.SYNAPSE_SECRET;
 

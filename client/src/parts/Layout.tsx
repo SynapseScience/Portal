@@ -19,7 +19,7 @@ export default function Layout({ popup, setPopup, content, me }) {
       <a className="disabled">Soutenir</a>
       <Button
         me={me}
-        host="https://synapse-api.replit.app"
+        host="https://api.connectome.fr"
         uri={window.location.origin}
         />
     </nav>
