@@ -1,8 +1,8 @@
-.icon {
+a > .icon, button > .icon {
   transition: all 200ms ease-in-out;
 }
 
-.icon:hover,
+a:hover > .icon,
 button:hover > .icon {
   scale: 1.25;
 }

@@ -21,7 +21,3 @@
 .field:has(input:invalid) .guide {
   opacity: 1;
 }
-
-.bubble.transparent {
-  background: transparent;
-}

@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from "react";
-import DevAppCard from "../parts/DevAppCard";
-import "./Devkit.css";
+"use client"
 
-export default function Devkit({ me, token, session }) {
+import React, { useState, useEffect } from "react";
+import DevAppCard from "../../components/DevAppCard";
+import "./Devkit.css";
+import { useSession } from "next-auth/react";
+
+export default function Devkit() {
+
+  const { data: session } = useSession();
+  const me = session ? session.user : null;
+  const token = session ? session.accessToken : null;
 
   const [formData, setFormData] = useState({
     client_id: "",
@@ -29,7 +36,7 @@ export default function Devkit({ me, token, session }) {
     };
 
     try {
-      const res = await fetch(session.apiUrl + "/application", {
+      const res = await fetch(process.env.NEXT_PUBLIC_SYNAPSE_API + "/application", {
         method: "POST",
         headers: {
           "Authorization": "Bearer " + token,
@@ -56,7 +63,7 @@ export default function Devkit({ me, token, session }) {
     (async () => {
       try {
          
-        let url = `${session.apiUrl}/drafts`
+        let url = `${process.env.NEXT_PUBLIC_SYNAPSE_API}/drafts`
          
         const response = await fetch(url, {
           method: "GET",
@@ -107,8 +114,8 @@ export default function Devkit({ me, token, session }) {
             value={formData.client_id}
             onChange={handleChange}
             pattern="[a-z0-9._\-]{3,25}" 
-            minlength="3" 
-            maxlength="25" 
+            minLength={3}
+            maxLength={25} 
             required
           />
         </div>
@@ -121,7 +128,7 @@ export default function Devkit({ me, token, session }) {
             placeholder="Mon application Synapse"
             value={formData.title}
             onChange={handleChange}
-            maxlength="40"
+            maxLength={40}
             required
           />
         </div>
@@ -133,7 +140,7 @@ export default function Devkit({ me, token, session }) {
             placeholder="Gestionnaire de bonbons au brocoli"
             value={formData.description}
             onChange={handleChange}
-            maxlength="200"
+            maxLength={200}
             required
           />
         </div>

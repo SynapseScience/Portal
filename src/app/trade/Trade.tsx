@@ -1,5 +1,6 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
-import AppCard from "../parts/AppCard";
 
 import "./Trade.css";
 

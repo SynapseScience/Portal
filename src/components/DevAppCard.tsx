@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Mention from "./Mention";
 import Icon from "./Icon";
+import "../styles/AppCard.css";
 
 export default function AppCard({ app, session, token }) {
 

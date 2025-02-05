@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Mention from "./Mention";
 import Icon from "./Icon";
-import "./AppCard.css";
+import "../styles/AppCard.css";
+import { useSession } from "next-auth/react";
 
-export default function AppCard({ app, me, session, token }) {
+export default function AppCard({ app }) {
 
   const redirect_closure = (client_id: string): Function => {
     function f() {
-      window.open(`${window.location.origin}/app?id=${client_id}`, "_self");
+      window.open(`${window.location.origin}/app/${client_id}`, "_self");
     }
 
     return f;
   };
 
+  const { data: session } = useSession();
+  const me = session ? session.user : null;
+  
   const [likes, setLikes] = useState(app.stargazers.length);
   const [liked, setLiked] = useState(false);
 
@@ -22,10 +26,10 @@ export default function AppCard({ app, me, session, token }) {
   
   const like_closure = (client_id: string): Function => {
     async function f() {
-      const response = await fetch(session.apiUrl + `/like?client_id=${client_id}`, {
+      const response = await fetch(process.env.NEXT_PUBLIC_SYNAPSE_API + `/like?client_id=${client_id}`, {
         method: "PUT",
         headers: {
-          "Authorization": "Bearer " + token
+          "Authorization": "Bearer " + session.accessToken
         }
       })
 

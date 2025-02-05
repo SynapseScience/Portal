@@ -1,10 +1,10 @@
 import React from "react";
-import "./Mention.css";
+import "../styles/Mention.css";
 
 export default function Mention({ username }) {
 
   return <a 
-    href={`${window.location.origin}/profile?username=${username}`}
+    href={`../../../../profile/${username}`}
     className="mention"
     >@{username}</a>
 

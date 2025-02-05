@@ -13,11 +13,6 @@
   margin: 10px 0;
 }
 
-.cols {
-  display: flex;
-  gap: 50px;
-}
-
 .profile .avatar {
   width: 100px;
   height: 100px;

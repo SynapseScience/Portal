@@ -1,0 +1,64 @@
+#synapse-login > #synapse-logo {
+  width: 40px;
+  margin-left: 10px;
+  flex: 0 0;
+}
+
+#synapse-login {
+  display: flex;
+  gap: 20px;
+  color: var(--font-color);
+  border-radius: 5px;
+  height: fit-content;
+  cursor: pointer !important;
+  padding: 0px;
+  width: 280px;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+#synapse-login:not(.logged) {
+  padding: 10px 20px;
+  width: calc(280px - 40px);
+  display: flex;
+}
+
+#synapse-login.synapse-bg-white {
+  background: white;
+  color: black;
+}
+
+#synapse-login.synapse-bg-white > #synapse-logo {
+  filter: invert(1);
+}
+
+#synapse-login.logged img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: black;
+}
+
+span.synapse-username {
+  color: var(--font-grey);
+}
+
+#synapse-login.synapse-text-white.logged {
+  color: var(--font-color) !important;
+}
+
+.syn::after {
+  content: "";
+  position: relative;
+  display: inline-block;
+  right: -5px;
+  transform: translate(0, -10%);
+  vertical-align: middle;
+  width: var(--syn-radius, 20px);
+  height: var(--syn-radius, 20px);
+  aspect-ratio: 1 / 1;
+  background-image: var(--syn-url);
+  z-index: 99;
+  background-size: contain;
+}

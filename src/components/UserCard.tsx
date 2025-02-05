@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./UserCard.css";
+import "../styles/UserCard.css";
 
-export default function UserCard({ user, me, session, token, setMe, setUser }) {
+export default function UserCard({ user, me, token, setMe, setUser }) {
 
   if(!user) return <></>;
   let bttn = <></>;
@@ -11,7 +11,7 @@ export default function UserCard({ user, me, session, token, setMe, setUser }) {
   const [followLine, setFollowline] = useState(null);
 
   const follow = async () => {
-    const url = session.apiUrl + "/follow?username=" + user.username;
+    const url = process.env.NEXT_PUBLIC_SYNAPSE_API + "/follow?username=" + user.username;
     const response = await fetch(url, {
       method: "PUT",
       headers: {
@@ -77,7 +77,7 @@ export default function UserCard({ user, me, session, token, setMe, setUser }) {
 
   const submitProfile = async () => {
     try {
-      const res = await fetch(session.apiUrl + "/me", {
+      const res = await fetch(process.env.NEXT_PUBLIC_SYNAPSE_API + "/me", {
         method: "PUT",
         headers: {
           "Authorization": "Bearer " + token,
@@ -151,11 +151,11 @@ export default function UserCard({ user, me, session, token, setMe, setUser }) {
     <div className="profile bubble outline">
     <div className="cols" style={{ gap: "20px" }} >
       <img className="avatar" src={user.avatar && user.avatar.length ? user.avatar :
-      `${session.apiUrl.replace('fr/api', 'fr')}/assets/user.png` } />
+      `${process.env.NEXT_PUBLIC_SYNAPSE_STATIC}/assets/user.png` } />
       <div className="badges outline">{
         user.badges.map((badge: string) => {
           return <img
-            src={`${window.location.origin}/static/badges/${badge}.png`} />
+            src={`${window.location.origin}/badges/${badge}.png`} />
         })
       }</div>
     </div>

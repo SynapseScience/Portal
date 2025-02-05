@@ -184,3 +184,94 @@ h1#title {
   left: 55px;
   font-size: 2.2em;
 }
+
+#root > main > nav {
+  display: flex;
+  flex-direction: column;
+  width: 210px;
+  height: calc(100% - 20px);
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px 40px;
+  padding-left: 55px;
+  align-items: flex-start;
+}
+
+#root > nav {
+  gap: 30px;
+}
+
+#root > main {
+  padding: 0px;
+  display: flex;
+  width: 100%;
+  height: calc(100% - var(--nav-height));
+}
+
+#root > main > main {
+  color: var(--font-color-dark);
+  background: var(--background-main);
+  border-top-left-radius: 35px;
+  overflow-y: scroll;
+}
+
+.menu-item {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  color: var(--font-color);
+  text-decoration: none;
+}
+
+#root > main > main > .cols.equal {
+  gap: 15px;
+}
+
+#root > main > main > .cols.equal > * {
+  flex-basis: 50%;
+}
+
+#popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  z-index: 99;
+  transition: opacity 50ms ease-in-out, scale 200ms ease-in-out;
+  opacity: 1;
+  scale: 1;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+#popup.disabled {
+  opacity: 0;
+  scale: 0.8;
+  transform: translate(-50%, -50%);
+  transition: none;
+  pointer-events: none;
+}
+
+#screen {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  z-index: 98;
+  transition: all 300ms ease-in-out;
+}
+
+#screen.disabled {
+  pointer-events: none;
+  backdrop-filter: none;
+}
+
+.cols {
+  display: flex;
+  gap: 50px;
+}
+
+.bubble.transparent {
+  background: transparent;
+}

@@ -42,3 +42,11 @@
   font-style: italic;
   color: var(--font-grey);
 }
+
+.cols > a > button, .cols > a {
+  width: 100%;
+}
+
+.specs svg {
+  height: 1em;
+}

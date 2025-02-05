@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import AppCard from "../parts/AppCard";
-import Icon from "../parts/Icon";
+"use client";
 
+import React, { useState, useEffect } from "react";
+import AppCard from "../components/AppCard";
+import Icon from "../components/Icon";
 import "./Home.css";
 
-export default function Home({ setPopup, me, token, session }) {
+export default function Home() {
+  
+  const session = { apiUrl: "https://api.connectome.fr/api" }
   const [apps, setApps] = useState([]);
   const [searchQuery, setQuery] = useState("");
   const [selectedSort, setSelectedSort] = useState("newest");
@@ -14,11 +17,11 @@ export default function Home({ setPopup, me, token, session }) {
 
   useEffect(() => {
     fetchApplications();
-  }, [selectedSort, selectedFilters]);
+  }, [selectedFilters, selectedSort])
 
   const fetchApplications = async () => {
     try {
-      let url = session.apiUrl + "/applications";
+      let url = process.env.NEXT_PUBLIC_SYNAPSE_API + "/applications";
       url += `?tags=${selectedFilters.join(",")}&sort=${selectedSort}`;
       if (searchQuery) url += `&search=${encodeURIComponent(searchQuery)}`;
 
@@ -42,7 +45,6 @@ export default function Home({ setPopup, me, token, session }) {
             <Icon name="heart" />
           </button>
 
-          {/* FILTER MENU */}
           <div className="dropdown">
             <button className="inverted outline" onClick={() => {
               const newState = !filterMenuOpen;
@@ -82,7 +84,6 @@ export default function Home({ setPopup, me, token, session }) {
             )}
           </div>
 
-          {/* SORT MENU */}
           <div className="dropdown">
             <button className="inverted outline" onClick={() => {
               const newState = !sortMenuOpen;
@@ -134,7 +135,7 @@ export default function Home({ setPopup, me, token, session }) {
 
       <div className="results">
         {apps.map((app) => (
-          <AppCard key={app.id} app={app} me={me} session={session} token={token} />
+          <AppCard key={app.client_id} app={app} />
         ))}
       </div>
     </>
