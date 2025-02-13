@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Mention from "./Mention";
 import Icon from "./Icon";
 import "../styles/AppCard.css";
+import { Application } from "@/types/models";
 
-export default function AppCard({ app, session, token }) {
+export default function AppCard({ app }: { app: Application }) {
 
   return <div className="card devkit outline">
     <h1>{app.verified ? <Icon name="circle-check" /> : <Icon name="hourglass-half" /> } {app.title}</h1>

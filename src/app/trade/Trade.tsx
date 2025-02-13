@@ -1,21 +1,28 @@
 "use client"
 
 import React, { useEffect, useState } from "react";
-
 import "./Trade.css";
 
-function Mission({ reward, description, action=() => {}, author }) {
+type Props = {
+  reward: number;
+  description: string;
+  action?: Function;
+  author: string;
+}
+
+function Mission({ reward, description, action=() => {}, author }: Props) {
   return <div className="mission cols outline" style={{ gap: "15px" }}>
     <span className="syn">{reward}</span>
     <div>
       <h3>#{author}</h3>
       <p>{description}</p>
-      <button onClick={action}>Tenter la mission</button>
+      <button onClick={action as React.MouseEventHandler<HTMLButtonElement>}
+      >Tenter la mission</button>
     </div>
   </div>
 }
 
-export default function Trade({ me, token, session }) {
+export default function Trade() {
 
   return <div className="cols equal">
       <div className="bubble">

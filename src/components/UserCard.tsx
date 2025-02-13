@@ -1,14 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/UserCard.css";
+import { CustomUser } from "next-auth";
 
-export default function UserCard({ user, me, token, setMe, setUser }) {
+type Props = {
+  user: CustomUser;
+  me: CustomUser | null;
+  token: string | null;
+  setMe: Function;
+  setUser: Function;
+}
 
-  if(!user) return <></>;
+export default function UserCard({ user, me, token, setMe, setUser }: Props) {
   let bttn = <></>;
 
   const [edition, setEdition] = useState(false);
   const [followers, setFollowers] = useState(user.followers.length);
-  const [followLine, setFollowline] = useState(null);
+  const [followLine, setFollowline] = useState("");
+  const [formData, setFormData] = useState({
+    fullname: "",
+    pronouns: "",
+    description: "",
+  });
+
+  if(!user) return <></>;
 
   const follow = async () => {
     const url = process.env.NEXT_PUBLIC_SYNAPSE_API + "/follow?username=" + user.username;
@@ -34,12 +48,6 @@ export default function UserCard({ user, me, token, setMe, setUser }) {
   const editProfile = () => {
     setEdition(true);
   }
-
-  const [formData, setFormData] = useState({
-    fullname: "",
-    pronouns: "",
-    description: "",
-  });
 
   if(me) {
     if(me.username !== user.username) {
@@ -67,8 +75,10 @@ export default function UserCard({ user, me, token, setMe, setUser }) {
     })
   }
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
+  type E = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
+  
+  const handleChange = (event: E) => {
+    const { id, value } = event.target;
     setFormData((prevData) => ({
       ...prevData,
       [id]: value,
@@ -96,29 +106,29 @@ export default function UserCard({ user, me, token, setMe, setUser }) {
       }
 
     } catch (error) {
-      console.error("Erreur lors de la soumission :", error.message);
+      console.error("Erreur lors de la soumission :", error);
     }
   }
 
   return edition ? 
     <div className="profile form bubble outline">
 
-      <div class="field">
-        <span class="field-title">Nom d'usage</span>
-        <span class="guide">40 caractères maximum</span>
+      <div className="field">
+        <span className="field-title">Nom d'usage</span>
+        <span className="guide">40 caractères maximum</span>
         <input 
           type="text" 
           id="fullname" 
           placeholder="Richard Feynman" 
-          maxlength="40"
+          maxLength={40}
           value={formData.fullname}
           onChange={handleChange}
           required 
         />
       </div>
 
-      <div class="field">
-        <span class="field-title">Pronoms</span>
+      <div className="field">
+        <span className="field-title">Pronoms</span>
         <select 
           id="pronouns"
           required
@@ -130,31 +140,31 @@ export default function UserCard({ user, me, token, setMe, setUser }) {
         </select>
       </div>
 
-      <div class="field">
-        <span class="field-title">Description</span>
-        <span class="guide">200 caractères maximum</span>
-        <textarea 
-          type="text" 
+      <div className="field">
+        <span className="field-title">Description</span>
+        <span className="guide">200 caractères maximum</span>
+        <textarea
           id="description" 
           placeholder="Addict aux monoxyde de dihydrogène" 
-          maxlength="200"
+          maxLength={200}
           value={formData.description}
           onChange={handleChange}
         />
       </div>
 
-      <div class="buttons">
+      <div className="buttons">
         <button onClick={submitProfile}>Modifier</button>
       </div>
     </div>
     : 
     <div className="profile bubble outline">
     <div className="cols" style={{ gap: "20px" }} >
-      <img className="avatar" src={user.avatar && user.avatar.length ? user.avatar :
+      <img alt="avatar" className="avatar" src={user.avatar && user.avatar.length ? user.avatar :
       `${process.env.NEXT_PUBLIC_SYNAPSE_STATIC}/assets/user.png` } />
       <div className="badges outline">{
         user.badges.map((badge: string) => {
           return <img
+            alt={"badge " + badge}
             src={`${window.location.origin}/badges/${badge}.png`} />
         })
       }</div>

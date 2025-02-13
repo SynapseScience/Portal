@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Mention from "./Mention";
 import Icon from "./Icon";
 import "../styles/AppCard.css";
 import { useSession } from "next-auth/react";
+import { Application } from "@/types/models";
 
-export default function AppCard({ app }) {
+export default function AppCard({ app }: { app: Application }) {
 
-  const redirect_closure = (client_id: string): Function => {
+  type EHandler = React.MouseEventHandler<HTMLButtonElement>;
+
+  const redirect_closure = (client_id: string): EHandler => {
     function f() {
       window.open(`${window.location.origin}/app/${client_id}`, "_self");
     }
@@ -24,16 +27,17 @@ export default function AppCard({ app }) {
     if(!liked && me && app.stargazers.includes(me.username)) setLiked(true);
   } 
   
-  const like_closure = (client_id: string): Function => {
+  const like_closure = (client_id: string): EHandler => {
     async function f() {
-      const response = await fetch(process.env.NEXT_PUBLIC_SYNAPSE_API + `/like?client_id=${client_id}`, {
+      const url = process.env.NEXT_PUBLIC_SYNAPSE_API + `/like?client_id=${client_id}`;
+      const response = session && await fetch(url, {
         method: "PUT",
         headers: {
           "Authorization": "Bearer " + session.accessToken
         }
       })
 
-      if(response.ok) {
+      if(response && me && response.ok) {
         const data = await response.json();
 
         setLikes(data.application.stargazers.length)

@@ -12,7 +12,14 @@ interface Props {
   children: React.ReactNode;
 }
 
-function MenuItem({ icon, text, to, disabled = false }) {
+interface MenuProps {
+  icon: string;
+  text: string;
+  to: string;
+  disabled?: boolean;
+}
+
+function MenuItem({ icon, text, to, disabled = false }: MenuProps) {
   return (
     <a href={to} className={"menu-item" + (disabled ? " disabled" : "")}>
       <Icon name={icon} outline={false} /> {text}
@@ -42,11 +49,7 @@ export default function Layout({ children }: Props) {
             <div id="screen" className={popup ? "" : "disabled"} onClick={() => setPopup(null)} />
             <nav>
               <h1 id="title">Synapse</h1>
-              <Button
-                me={0}
-                host="https://api.connectome.fr"
-                uri={typeof window !== "undefined" ? window.location.origin : "null"}
-              />
+              <Button />
             </nav>
             <main>
               <nav>
@@ -59,7 +62,10 @@ export default function Layout({ children }: Props) {
               </nav>
               <main>{children}</main>
             </main>
-            <div id="popup" className={"bubble outline " + (popup ? "" : "disabled")}>{popup}</div>
+            <div 
+              id="popup" 
+              className={"bubble outline " + (popup ? "" : "disabled")}
+            >{popup}</div>
           </div>
         </body>
       </html>

@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { Session, CustomUser, JWT } from "next-auth";
 
 const handler = NextAuth({
   providers: [
@@ -60,17 +60,18 @@ const handler = NextAuth({
       if (account) {
         token.accessToken = account.access_token;
         token.user = profile;
-        token.expires_at = Math.floor(Date.now() / 1000) + 60 * 60;
+        token.expiresAt = Math.floor(Date.now() / 1000) + 60 * 60;
       }
       return token;
     },
     async session({ session, token }) {
-      if (Date.now() / 1000 > token.expires_at) {
-        return null;
+      
+      if (token.expiresAt && Date.now() / 1000 > (token.expiresAt as number)) {
+        return {} as Session;
       }
       
-      session.accessToken = token.accessToken;
-      session.user = token.user;
+      session.accessToken = token.accessToken as string;
+      if(token.user) session.user = token.user as CustomUser;
 
       return session;
     }

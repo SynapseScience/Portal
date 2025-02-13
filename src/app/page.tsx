@@ -1,25 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import AppCard from "../components/AppCard";
 import Icon from "../components/Icon";
 import "./Home.css";
+import { Application } from "@/types/models";
 
 export default function Home() {
   
-  const session = { apiUrl: "https://api.connectome.fr/api" }
   const [apps, setApps] = useState([]);
   const [searchQuery, setQuery] = useState("");
   const [selectedSort, setSelectedSort] = useState("newest");
   const [selectedFilters, setSelectedFilters] = useState(["indépendant", "francophone"]);
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
-
-  useEffect(() => {
-    fetchApplications();
-  }, [selectedFilters, selectedSort])
-
-  const fetchApplications = async () => {
+  
+  const fetchApplications = useCallback(async () => {
     try {
       let url = process.env.NEXT_PUBLIC_SYNAPSE_API + "/applications";
       url += `?tags=${selectedFilters.join(",")}&sort=${selectedSort}`;
@@ -34,7 +30,11 @@ export default function Home() {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [selectedFilters, selectedSort, searchQuery]);
+
+  useEffect(() => {
+    fetchApplications();
+  }, [fetchApplications]);
 
   return (
     <>
@@ -134,7 +134,7 @@ export default function Home() {
       </nav>
 
       <div className="results">
-        {apps.map((app) => (
+        {apps.map((app: Application) => (
           <AppCard key={app.client_id} app={app} />
         ))}
       </div>

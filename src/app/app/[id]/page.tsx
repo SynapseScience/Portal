@@ -3,7 +3,8 @@ import Mention from "@/components/Mention";
 import Icon from "@/components/Icon";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import "./App.css"
+import "./App.css";
+import { Application } from "../../../types/models";
 
 async function getAppData(client_id: string, apiUrl: string) {
   const response = await fetch(`${apiUrl}/application?client_id=${client_id}`, {
@@ -24,7 +25,11 @@ function dateToString(dateSeed: string) {
   return `${dd}/${mm}/${yyyy}`;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+type Props = {
+  params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: Props) {
   const { id } = await params;
   const apiUrl = process.env.NEXT_PUBLIC_SYNAPSE_API;
   
@@ -64,12 +69,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function AppPage({ params }) {
+export default async function AppPage({ params }: Props) {
   const p = await params;
   const client_id = p.id;
   
-  const apiUrl = process.env.NEXT_PUBLIC_SYNAPSE_API;
-  const app = await getAppData(client_id, apiUrl);
+  const apiUrl = process.env.NEXT_PUBLIC_SYNAPSE_API as string;
+  const app = await getAppData(client_id, apiUrl) as Application;
 
   if (!app) return notFound();
 
@@ -109,33 +114,33 @@ export default async function AppPage({ params }) {
           <div className="specs">
             {[
               {
-                "test": (app) => app.verified,
+                "test": (app: Application) => app.verified,
                 "line": "Média publié sur le catalogue public",
                 "icon": "check"
               },
               {
-                "test": (app) => !app.verified,
+                "test": (app: Application) => !app.verified,
                 "line": "Média en attente de vérification",
                 "icon": "hourglass-half"
               },
               {
-                "test": (app) => app.permissions.includes("economy"),
+                "test": (app: Application) => app.permissions.includes("economy"),
                 "line": "Application intégrée à l'économie SYN",
                 "icon": "coins"
               },
               {
-                "test": (app) => app.tags.includes("partenaire"),
+                "test": (app: Application) => app.tags.includes("partenaire"),
                 "line": "Partenaire vérifié de l'écosystème Synapse",
                 "icon": "handshake"
               },
               {
-                "test": (app) => app.tags.includes("open-source"),
+                "test": (app: Application) => app.tags.includes("open-source"),
                 "line": "Code source disponible en sources ouvertes",
                 "icon": "git-alt",
                 "prefix": "fab"
               },
               {
-                "test": (app) => app.tags.includes("indépendant"),
+                "test": (app: Application) => app.tags.includes("indépendant"),
                 "line": "Aut.eur.rice indépendant.e",
                 "icon": "person"
               }

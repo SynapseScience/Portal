@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import DevAppCard from "../../components/DevAppCard";
 import "./Devkit.css";
 import { useSession } from "next-auth/react";
+import { Application } from "@/types/models";
 
 export default function Devkit() {
 
@@ -20,8 +21,10 @@ export default function Devkit() {
     link: "",
   });
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
+  type e = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
+
+  const handleChange = (event: e) => {
+    const { id, value } = event.target;
     setFormData((prevData) => ({
       ...prevData,
       [id]: value,
@@ -53,7 +56,7 @@ export default function Devkit() {
       setSecret(data.client_secret);
       
     } catch (error) {
-      console.error("Erreur lors de la soumission :", error.message);
+      console.error("Erreur lors de la soumission :", error);
     }
   };
 
@@ -63,7 +66,7 @@ export default function Devkit() {
     (async () => {
       try {
          
-        let url = `${process.env.NEXT_PUBLIC_SYNAPSE_API}/drafts`
+        const url = `${process.env.NEXT_PUBLIC_SYNAPSE_API}/drafts`
          
         const response = await fetch(url, {
           method: "GET",
@@ -92,7 +95,7 @@ export default function Devkit() {
       <h1>Vos Applications</h1>
       <p>N'importe qui peut soumettre son projet à l'intégration dans l'écosystème Synapse. Chaque soumission sera traitée par un conseil de modération, puis approuvée ou non. Des permissions de base seront alors accordées. Pour obtenir plus d'accès, il sera nécessaire de contacter le support par mail ou sur le serveur discord de la communauté.</p>
       <div id="devkit-results">
-        {apps.map(app => <DevAppCard app={app} session={session} token={token} />)}
+        {apps.map((app: Application) => <DevAppCard app={app} />)}
       </div>
     </div>
     <div className="bubble transparent">{
@@ -162,7 +165,6 @@ export default function Devkit() {
             placeholder="https://my-app.com&#10;https://cdn-123.dev"
             value={formData.uris}
             onChange={handleChange}
-            pattern="^(https?:\/\/[^\s]+)(\nhttps?:\/\/[^\s]+)*$"
             required
           />
         </div>

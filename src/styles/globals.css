@@ -275,3 +275,20 @@ h1#title {
 .bubble.transparent {
   background: transparent;
 }
+
+.field .guide {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+#logger, .field .guide {
+  font-size: 0.7em;
+  color: var(--font-color-dark);
+}
+
+.field:has(input:invalid) .guide {
+  opacity: 1;
+}

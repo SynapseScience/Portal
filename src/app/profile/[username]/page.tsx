@@ -1,23 +1,23 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import UserCard from "../../../components/UserCard";
 import AppCard from "../../../components/AppCard";
 import "./Profile.css";
 import { notFound } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Application } from "@/types/models";
+import { CustomUser } from "next-auth";
 
-interface Props { 
-  params: { 
-    username: string;
-  } 
-}
+type P = { username: string; };
 
-export default function Profile({ params }) {
+export default function Profile({ params }: { params: Promise<P> }) {
 
   const { data: session } = useSession();
   const me = session ? session.user : null;
   const token = session ? session.accessToken : null;
 
-  const setMe = (userInfos) => {
+  const setMe = (userInfos: CustomUser) => {
     if(session) session.user = userInfos;
   }
   
@@ -25,7 +25,7 @@ export default function Profile({ params }) {
   const [apps, setApps] = useState([]);
   const [tried, setTried] = useState(false);
   
-  let p = React.use(params);
+  let p = React.use(params) as P;
   const username = p.username;
   if(!username) notFound();
 
@@ -86,11 +86,9 @@ export default function Profile({ params }) {
     <div className="bubble right transparent" style={{ paddingLeft: "0px" }}>
       <h1>Applications</h1>
       <div id="my-apps">
-        { apps.length > 0 ? apps.map((app) => <AppCard 
-          app={app} 
-          me={me}
-          session={session}
-          token={token} 
+        { apps.length > 0 ? apps.map((app: Application) => <AppCard 
+          key={app.client_id}
+          app={app}
         /> ) : <span>Cet utilisateur n'a pas d'applications vérifiées.</span> }
       </div>
     </div>
