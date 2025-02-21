@@ -76,11 +76,7 @@ export default function Profile({ params }: { params: Promise<P> }) {
           gap: "10px"
         }}>
           <h1>Utilisateur inconnu</h1>
-          <span>Cette personne n'est pas encore enregistrée dans l'écosystème Synapse ! Invitez-la à rejoidre en partageant ce lien :</span>
-          <code className="block">
-            <a href={process.env.NEXT_PUBLIC_SYNAPSE_STATIC + "/oauth/register?username=" + username}
-            >{process.env.NEXT_PUBLIC_SYNAPSE_STATIC}/oauth/register?username={username}</a>
-          </code>
+          <span>Cette personne n'est pas encore enregistrée dans l'écosystème Synapse ! Invitez-la à rejoidre en partageant la plate-forme !</span>
         </div>
     }</div>
     <div className="bubble right transparent" style={{ paddingLeft: "0px" }}>
