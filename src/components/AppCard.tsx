@@ -64,10 +64,12 @@ export default function AppCard({ app }: { app: Application }) {
         } else return <Mention username={author} />;
       })}</span>
       <div className="cols">
-        {me && <button onClick={like_closure(app.client_id)} className="inverted outline">{likes} {
+        {me ? <button onClick={like_closure(app.client_id)} className="inverted outline">{likes} {
           <Icon name="heart" outline={!liked} />
+        }</button> : <button className="inverted outline disabled">{likes} {
+          <Icon name="heart" outline={true} />
         }</button>}
-        <button onClick={redirect_closure(app.client_id)}>Visiter</button>
+        <button onClick={redirect_closure(app.client_id)}>Détails</button>
       </div>
       <p>{app.description}</p>
     </div>

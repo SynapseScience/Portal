@@ -8,12 +8,12 @@
   width: 280px;
   flex: 0 0 auto;
   overflow: clip;
-  background-size: cover;
+  background-size: contain;
 }
 
 .card:not(.devkit) {
   height: 360px;
-  background: white;
+  background-color: white;
 }
 
 .card .cols:has(button) {

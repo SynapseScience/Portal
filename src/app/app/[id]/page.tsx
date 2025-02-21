@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import "./App.css";
 import { Application } from "../../../types/models";
+import LikeButton from "@/components/LikeButton";
 
 async function getAppData(client_id: string, apiUrl: string) {
   const response = await fetch(`${apiUrl}/application?client_id=${client_id}`, {
@@ -85,9 +86,10 @@ export default async function AppPage({ params }: Props) {
           <div
             className="bubble outline app"
             style={{
-              backgroundImage: app.thumbnail ? `url(${app.thumbnail})` : "url(none)",
-            }}
-          >
+              backgroundImage: app.thumbnail 
+                ? `url(${app.thumbnail})` 
+                : "url(none)",
+            }}>
             <div className="banner"></div>
             <div className="details">
               <h1>{app.title}</h1>
@@ -95,16 +97,19 @@ export default async function AppPage({ params }: Props) {
                 #{app.client_id}
                 {app.authors.length > 0 ? " par " : ""}
                 {app.authors.map((author: string) =>
-                  author.startsWith("$") ? author.replace("$", "").trim() : <Mention username={author} />
+                  author.startsWith("$") ? author.replace("$", "").trim() : 
+                    <Mention username={author} />
                 )}
               </span>
               <div className="cols">
+                {<LikeButton app={app} />}
                 <Link href={app.link} target="_blank" rel="noopener noreferrer">
                   <button>Visiter</button>
                 </Link>
               </div>
               <p>{app.description}</p>
-              <span className="app-date">Enregistrée le {dateToString(app.creation)}</span>
+              <span className="app-date"
+                >Enregistrée le {dateToString(app.creation)}</span>
             </div>
           </div>
         </div>

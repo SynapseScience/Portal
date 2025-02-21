@@ -18,7 +18,7 @@ export default function Home() {
   const fetchApplications = useCallback(async () => {
     try {
       let url = process.env.NEXT_PUBLIC_SYNAPSE_API + "/applications";
-      url += `?tags=${selectedFilters.join(",")}&sort=${selectedSort}`;
+      url += `?limit=30&tags=${selectedFilters.join(",")}&sort=${selectedSort}`;
       if (searchQuery) url += `&search=${encodeURIComponent(searchQuery)}`;
 
       const response = await fetch(url);
