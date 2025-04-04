@@ -1,5 +1,5 @@
 #synapse-login > #synapse-logo {
-  width: 40px;
+  width: 35px;
   margin-left: 10px;
   flex: 0 0;
 }
@@ -7,7 +7,7 @@
 #synapse-login {
   display: flex;
   gap: 20px;
-  color: var(--font-color);
+  color: white;
   border-radius: 5px;
   height: fit-content;
   cursor: pointer !important;
@@ -16,12 +16,51 @@
   justify-content: center;
   align-items: center;
   background: transparent;
+  border-radius: 10px;
 }
 
 #synapse-login:not(.logged) {
-  padding: 10px 20px;
+  padding: 10px;
   width: calc(280px - 40px);
   display: flex;
+  width: 215px !important;
+  gap: 0px !important;
+  transition: background 10ms ease-in-out;
+}
+
+#theme-switch, #synapse-login:not(.logged) {
+  background: black;
+  border: 1px solid #80808054;
+  outline: 0px;
+}
+
+#theme-switch {
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  width: 35px;
+  height: 35px;
+  position: relative;
+}
+
+#theme-switch > .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dark #synapse-login:not(.logged) {
+  background: white;
+  color: black;
+}
+
+#synapse-login:not(.logged):hover,
+#theme-switch:hover {
+  background: #1c1c1c;
+}
+
+.dark #synapse-login:not(.logged):hover {
+  background: #e8e8e8;
 }
 
 #synapse-login.synapse-bg-white {
@@ -29,7 +68,8 @@
   color: black;
 }
 
-#synapse-login.synapse-bg-white > #synapse-logo {
+#synapse-login.synapse-bg-white > #synapse-logo,
+.dark #synapse-login:not(.logged) > #synapse-logo {
   filter: invert(1);
 }
 

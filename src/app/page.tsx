@@ -11,7 +11,7 @@ export default function Home() {
   const [apps, setApps] = useState([]);
   const [searchQuery, setQuery] = useState("");
   const [selectedSort, setSelectedSort] = useState("newest");
-  const [selectedFilters, setSelectedFilters] = useState(["indépendant", "francophone"]);
+  const [selectedFilters, setSelectedFilters] = useState([""]);
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
   
@@ -41,17 +41,19 @@ export default function Home() {
       <nav>
         <h1>Applications</h1>
         <div>
-          <button className="inverted outline disabled">
+          <button className="inverted outline flex gap-10 disabled">
             <Icon name="heart" />
+            <span>Favoris</span>
           </button>
 
           <div className="dropdown">
-            <button className="inverted outline" onClick={() => {
+            <button className="inverted outline flex gap-10" onClick={() => {
               const newState = !filterMenuOpen;
               setFilterMenuOpen(newState);
               if(newState) setSortMenuOpen(false);
             }}>
               <Icon name="filter" />
+              <span>Filtrer</span>
             </button>
             {filterMenuOpen && (
               <div className="dropdown-menu outline">
@@ -85,12 +87,13 @@ export default function Home() {
           </div>
 
           <div className="dropdown">
-            <button className="inverted outline" onClick={() => {
+            <button className="inverted outline flex gap-10" onClick={() => {
               const newState = !sortMenuOpen;
               setSortMenuOpen(newState);
               if(newState) setFilterMenuOpen(false);
             }}>
               <Icon name="sort" />
+              <span>Trier</span>
             </button>
             {sortMenuOpen && (
               <div className="dropdown-menu outline">

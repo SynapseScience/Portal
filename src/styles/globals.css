@@ -3,9 +3,47 @@
   --font-color: #E0E4FF;
   --font-grey: #8f93ae;
   --font-color-dark: #080227;
+  --background-cards: #ffff;
   --background-main: #f3f4ff;
+  --background-buttons: #080227;
+  --outline-color: #d1d1d1;
   --border-width: 2px;
   --gradient: linear-gradient(to bottom right, #1b1e43 0%, #020310 31%, #000000 100%);
+  --white-hover: #f8f8f8;
+  --background-buttons-inverted: white;
+}
+
+.dark {
+  --nav-height: 100px;
+  --white-hover: #1c1c1c;
+  --font-color: #ededed;
+  --font-grey: #525252;
+  --font-color-dark: var(--font-color);
+  --background-cards: black;
+  --background-main: black;
+  --background-buttons: #080227;
+  --outline-color: #292929;
+  --border-width: 2px;
+  --gradient: black;
+  --background-buttons-inverted: #0d0d0d;
+
+  overflow: clip;
+}
+
+.dark #root > nav {
+  border-bottom: 1px solid var(--outline-color);
+}
+
+.dark #root > main > nav {
+  border-right: 1px solid var(--outline-color);
+}
+
+.dark .card > .details {
+  background: linear-gradient(to top, black 0%, #000000f5 70%, transparent 126%) !important;
+}
+
+p {
+  opacity: 0.8;
 }
 
 body, html {
@@ -17,13 +55,40 @@ body, html {
   color: var(--font-color);
 }
 
-.outline {
+.outline, .outline:focus, button {
   /* border: var(--border-width) solid var(--lightgrey); */
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+  outline: 1px solid var(--outline-color);
 }
 
 button {
+  background: var(--background-buttons);
+  color: var(--font-color);
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
   box-shadow: 0 0 10px var(--lightgrey);
+  transition: background 10ms ease-in-out;
+}
+
+button:hover {
+  background: #0f0443;
+}
+
+.dark button, button.inverted {
+  background: var(--background-buttons-inverted) !important;
+  color: var(--font-color-dark) !important;
+}
+
+button.inverted:hover, .dark button:hover {
+  background: var(--white-hover) !important;
+}
+
+button.disabled {
+  color: var(--font-grey) !important;
+  cursor: not-allowed;
 }
 
 #root {
@@ -60,17 +125,11 @@ code {
   width: 100%;
 }
 
-button.disabled {
-  background: gray;
-  color: gray !important;
-  cursor: not-allowed;
-}
-
 *:focus {
   outline: none;
 }
 
-a {
+a, button, .pointer {
   cursor: pointer;
 }
 
@@ -87,11 +146,21 @@ div.form {
   text-align: center;
 }
 
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gap-10 { gap: 10px; }
+.gap-20 { gap: 20px; }
+.gap-30 { gap: 30px; }
+
 .bubble {
   border-radius: 15px;
-  background: white;
+  background: var(--background-cards);
   padding: 50px;
-  color: black;
+  color: var(--font-color-dark);
 }
 
 h1 {
@@ -103,17 +172,20 @@ select,
 textarea {
   padding: 10px 15px;
   border-radius: 5px;
-  background: white;
+  background: var(--background-buttons-inverted);
   border: none;
   width: calc(100% - 30px);
   resize: none;
   font-family: "Poppins";
+  color: var(--font-color);
 }
 
 .form input,
 .form select,
 .form textarea {
   background: var(--background-main);
+  outline: 1px solid var(--outline-color);
+  color: var(--font-color);
 }
 
 textarea {
@@ -122,16 +194,6 @@ textarea {
 
 select {
   width: 100%;
-}
-
-button {
-  background: var(--font-color-dark);
-  color: var(--font-color);
-  border-radius: 5px;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  margin-top: 15px;
 }
 
 .field {
@@ -173,11 +235,6 @@ input[type="checkbox"] {
   justify-content: center;
 }
 
-button.inverted {
-  background: white;
-  color: var(--font-color-dark);
-}
-
 h1#title {
   position: absolute;
   top: 22px;
@@ -189,11 +246,10 @@ h1#title {
   display: flex;
   flex-direction: column;
   width: 210px;
-  height: calc(100% - 20px);
+  padding: 50px !important;
+  height: calc(100% - 100px) !important;
   justify-content: flex-start;
   gap: 10px;
-  padding: 10px 40px;
-  padding-left: 55px;
   align-items: flex-start;
 }
 
@@ -291,4 +347,40 @@ h1#title {
 
 .field:has(input:invalid) .guide {
   opacity: 1;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown > button {
+  height: 100%;
+  margin-top: 0px !important;
+}
+
+.dropdown-menu {
+  position: absolute;
+  border-radius: 5px;
+  top: 51px;
+  background: var(--background-cards);
+  color: var(--font-color);
+  padding: 20px;
+  z-index: 97;
+  width: 180px;
+}
+
+.dropdown-menu label {
+  display: flex;
+  gap: 5px;
+}
+
+.dropdown-menu label > * {
+  width: fit-content;
+}
+
+#root > nav > div#right {
+  display: flex;
+  gap: 15px;
+  flex-direction: row;
+  align-items: center;
 }

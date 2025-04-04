@@ -27,31 +27,3 @@
 #root > main > main:has(.results) {
   overflow-y: clip;
 }
-
-.dropdown {
-  position: relative;
-}
-
-.dropdown > button {
-  height: 100%;
-  margin-top: 0px !important;
-}
-
-.dropdown-menu {
-  position: absolute;
-  border-radius: 5px;
-  top: 51px;
-  background: white;
-  padding: 20px;
-  z-index: 97;
-  width: 180px;
-}
-
-.dropdown-menu label {
-  display: flex;
-  gap: 5px;
-}
-
-.dropdown-menu label > * {
-  width: fit-content;
-}

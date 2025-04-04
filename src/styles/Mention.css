@@ -10,3 +10,8 @@ a.mention {
 a.mention:hover {
   text-decoration: underline;
 }
+
+.dark a.mention {
+  color: black;
+  background: white;
+}

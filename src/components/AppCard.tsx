@@ -49,7 +49,7 @@ export default function AppCard({ app }: { app: Application }) {
   }
   
   return <div className="card outline" style={{
-     backgroundImage: app.thumbnail ? `url(${app.thumbnail})` : "url(none)"
+     backgroundImage: app.thumbnail ? `url(${app.thumbnail})` : `url(${process.env.NEXT_PUBLIC_SYNAPSE_CDN}/thumbnails/${app.client_id}.png)`
    }}>
     <div className="banner">
       {app.tags.includes("partenaire") ? <Icon className="outline" name="handshake" /> : <></>}

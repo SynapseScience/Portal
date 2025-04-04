@@ -6,6 +6,7 @@ import Button from "../components/synapse-button";
 import Icon from "../components/Icon";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import { useState } from "react";
 config.autoAddCss = false;
 
 interface Props {
@@ -31,9 +32,10 @@ export default function Layout({ children }: Props) {
   const popup = false;
   const setPopup = (param: any) => true;
 
+  const [darkTheme, switchTheme] = useState(false);
+
   return (
-    <SessionProvider>
-      <html lang="fr">
+    <html lang="fr">
         <head>
           <title>Synapse | Portail</title>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,31 +46,37 @@ export default function Layout({ children }: Props) {
           />
           <link rel="icon" href={process.env.NEXT_PUBLIC_SYNAPSE_STATIC + "/assets/favicon.png"}/>
         </head>
-        <body>
-          <div id="root">
-            <div id="screen" className={popup ? "" : "disabled"} onClick={() => setPopup(null)} />
-            <nav>
-              <h1 id="title">Synapse</h1>
-              <Button />
-            </nav>
-            <main>
+        <body className={darkTheme ? "dark" : "classic"}>
+          <SessionProvider>
+            <div id="root">
+              <div id="screen" className={popup ? "" : "disabled"} onClick={() => setPopup(null)} />
               <nav>
-                <MenuItem to="/" icon="house" text="Applications" />
-                <MenuItem to="/social" icon="comments" text="Communauté" disabled />
-                <MenuItem to="/medias" icon="newspaper" text="Médias" disabled />
-                <MenuItem to="/events" icon="calendar-check" text="Évènements" disabled />
-                <MenuItem to="/trade" icon="money-bill-trend-up" text="Échanges" disabled />
-                <MenuItem to="/devkit" icon="gear" text="Devkit" />
+                <h1 id="title">Synapse</h1>
+                <div className="flex gap-20">
+                  <div id="theme-switch" className="pointer outline" onClick={() => switchTheme(!darkTheme)}>
+                    <Icon name={darkTheme ? "sun" : "moon"} />
+                  </div>
+                  <Button />
+                </div>
               </nav>
-              <main>{children}</main>
-            </main>
-            <div 
-              id="popup" 
-              className={"bubble outline " + (popup ? "" : "disabled")}
-            >{popup}</div>
-          </div>
+              <main>
+                <nav>
+                  <MenuItem to="/" icon="house" text="Applications" />
+                  <MenuItem to="/social" icon="comments" text="Communauté" disabled />
+                  <MenuItem to="/medias" icon="newspaper" text="Médias" disabled />
+                  <MenuItem to="/events" icon="calendar-check" text="Évènements" disabled />
+                  <MenuItem to="/trade" icon="money-bill-trend-up" text="Échanges" disabled />
+                  <MenuItem to="/devkit" icon="gear" text="Devkit" />
+                </nav>
+                <main>{children}</main>
+              </main>
+              <div 
+                id="popup" 
+                className={"bubble outline " + (popup ? "" : "disabled")}
+              >{popup}</div>
+            </div>
+          </SessionProvider>
         </body>
       </html>
-    </SessionProvider>
   );
 }
