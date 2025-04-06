@@ -11,14 +11,17 @@ export default function Home() {
   const [apps, setApps] = useState([]);
   const [searchQuery, setQuery] = useState("");
   const [selectedSort, setSelectedSort] = useState("newest");
-  const [selectedFilters, setSelectedFilters] = useState([""]);
+  const [selectedFilters, setSelectedFilters] = useState(["indépendant", "francophone"]);
+  const [selectedTypes, setSelectedTypes] = useState([]);
+  
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
+  const [typeMenuOpen, setTypeMenuOpen] = useState(false);
   
   const fetchApplications = useCallback(async () => {
     try {
       let url = process.env.NEXT_PUBLIC_SYNAPSE_API + "/applications";
-      url += `?limit=30&tags=${selectedFilters.join(",")}&sort=${selectedSort}`;
+      url += `?limit=30&tags=${selectedFilters.join(",")}&sort=${selectedSort}&type=${selectedTypes.join(",")}`;
       if (searchQuery) url += `&search=${encodeURIComponent(searchQuery)}`;
 
       const response = await fetch(url);
@@ -30,7 +33,7 @@ export default function Home() {
     } catch (err) {
       console.error(err);
     }
-  }, [selectedFilters, selectedSort, searchQuery]);
+  }, [selectedFilters, selectedSort, selectedTypes, searchQuery]);
 
   useEffect(() => {
     fetchApplications();
@@ -51,9 +54,10 @@ export default function Home() {
               const newState = !filterMenuOpen;
               setFilterMenuOpen(newState);
               if(newState) setSortMenuOpen(false);
+              if(newState) setTypeMenuOpen(false);
             }}>
               <Icon name="filter" />
-              <span>Filtrer</span>
+              <span>Filtrer ({selectedFilters.length})</span>
             </button>
             {filterMenuOpen && (
               <div className="dropdown-menu outline">
@@ -77,6 +81,47 @@ export default function Home() {
                             : [...prev, tag]
                         );
                         setSortMenuOpen(false);
+                        setTypeMenuOpen(false);
+                      }}
+                    />
+                    {tag}
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="dropdown">
+            <button className="inverted outline flex gap-10" onClick={() => {
+              const newState = !typeMenuOpen;
+              setTypeMenuOpen(newState);
+              if(newState) setSortMenuOpen(false);
+              if(newState) setFilterMenuOpen(false);
+            }}>
+              <Icon name="box" />
+              <span>Types ({selectedTypes.length})</span>
+            </button>
+            {typeMenuOpen && (
+              <div className="dropdown-menu outline">
+                {[
+                  "outil",
+                  "jeu",
+                  "plateforme", 
+                  "données", 
+                  "forum",
+                ].map((tag) => (
+                  <label key={tag} className="dropdown-item">
+                    <input
+                      type="checkbox"
+                      checked={selectedTypes.includes(tag)}
+                      onChange={() => {
+                        setSelectedTypes((prev) =>
+                          prev.includes(tag)
+                            ? prev.filter((t) => t !== tag)
+                            : [...prev, tag]
+                        );
+                        setSortMenuOpen(false);
+                        setFilterMenuOpen(false);
                       }}
                     />
                     {tag}
@@ -91,6 +136,7 @@ export default function Home() {
               const newState = !sortMenuOpen;
               setSortMenuOpen(newState);
               if(newState) setFilterMenuOpen(false);
+              if(newState) setTypeMenuOpen(false);
             }}>
               <Icon name="sort" />
               <span>Trier</span>
