@@ -31,10 +31,17 @@
   border-radius: 10px;
 }
 
-.profile .badges > img {
+.profile .badges > .badge {
   width: 30px;
   height: 30px;
   flex: 0 0;
+}
+
+.profile .badges > .badge.placeholder {
+  border-radius: 50%;
+  background: #00000010;
+  display: block;
+  aspect-ratio: 1;
 }
 
 .profile > .details {

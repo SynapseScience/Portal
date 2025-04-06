@@ -152,6 +152,11 @@ div.form {
   align-items: center;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .gap-10 { gap: 10px; }
 .gap-20 { gap: 20px; }
 .gap-30 { gap: 30px; }
@@ -177,7 +182,7 @@ textarea {
   width: calc(100% - 30px);
   resize: none;
   font-family: "Poppins";
-  color: var(--font-color);
+  color: var(--font-color-dark);
 }
 
 .form input,
@@ -185,7 +190,7 @@ textarea {
 .form textarea {
   background: var(--background-main);
   outline: 1px solid var(--outline-color);
-  color: var(--font-color);
+  color: var(--font-color-dark);
 }
 
 textarea {
@@ -267,8 +272,12 @@ h1#title {
 #root > main > main {
   color: var(--font-color-dark);
   background: var(--background-main);
-  border-top-left-radius: 35px;
   overflow-y: scroll;
+  border-top-left-radius: 35px;
+}
+
+.dark #root > main > main {
+  border-top-left-radius: 0px !important;
 }
 
 .menu-item {
@@ -363,7 +372,7 @@ h1#title {
   border-radius: 5px;
   top: 51px;
   background: var(--background-cards);
-  color: var(--font-color);
+  color: var(--font-color-dark);
   padding: 20px;
   z-index: 97;
   width: 180px;

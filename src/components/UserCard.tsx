@@ -110,6 +110,14 @@ export default function UserCard({ user, me, token, setMe, setUser }: Props) {
     }
   }
 
+  let placeholderBadges = [];
+
+  for(let i=0; i < (8 - user.badges.length); i++) {
+    placeholderBadges.push(
+      <div className="badge placeholder"></div>
+    )
+  }
+
   return edition ? 
     <div className="profile form bubble outline">
 
@@ -164,10 +172,11 @@ export default function UserCard({ user, me, token, setMe, setUser }: Props) {
       <div className="badges outline">{
         user.badges.map((badge: string) => {
           return <img
+            className="badge"
             alt={"badge " + badge}
             src={`${window.location.origin}/badges/${badge}.png`} />
         })
-      }</div>
+      }{placeholderBadges}</div>
     </div>
     <h1>{user.fullname}</h1>
     <div className="details">

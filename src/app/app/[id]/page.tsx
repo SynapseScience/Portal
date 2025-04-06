@@ -82,7 +82,11 @@ export default async function AppPage({ params }: Props) {
   return (
     <>
       <div className="cols" style={{ gap: "0px" }}>
-        <div className="bubble transparent">
+        <div className="bubble transparent flex-col gap-20">
+          <div className="thumbnail outline" style={{
+            backgroundImage: `url(${app.thumbnail})`
+          }}>
+          </div>
           <div
             className="bubble outline app"
             style={{
@@ -114,49 +118,66 @@ export default async function AppPage({ params }: Props) {
           </div>
         </div>
 
-        <div className="bubble transparent" style={{ marginRight: "0px" }}>
-          <h1>Particularités</h1>
-          <div className="specs">
-            {[
-              {
-                "test": (app: Application) => app.verified,
-                "line": "Média publié sur le catalogue public",
-                "icon": "check"
-              },
-              {
-                "test": (app: Application) => !app.verified,
-                "line": "Média en attente de vérification",
-                "icon": "hourglass-half"
-              },
-              {
-                "test": (app: Application) => app.permissions.includes("economy"),
-                "line": "Application intégrée à l'économie SYN",
-                "icon": "coins"
-              },
-              {
-                "test": (app: Application) => app.tags.includes("partenaire"),
-                "line": "Partenaire vérifié de l'écosystème Synapse",
-                "icon": "handshake"
-              },
-              {
-                "test": (app: Application) => app.tags.includes("open-source"),
-                "line": "Code source disponible en sources ouvertes",
-                "icon": "git-alt",
-                "prefix": "fab"
-              },
-              {
-                "test": (app: Application) => app.tags.includes("indépendant"),
-                "line": "Aut.eur.rice indépendant.e",
-                "icon": "person"
-              }
-            ].map(
-              (tag) =>
-                tag.test(app) && (
-                  <div key={tag.line}>
-                    <Icon name={tag.icon} prefix={tag.prefix || "fas"} /> {tag.line}
-                  </div>
-                )
-            )}
+        <div className="bubble transparent flex-col gap-30" style={{ marginRight: "0px", paddingLeft: "0px" }}>
+          <div className="flex-col gap-10">
+            <h1>Particularités</h1>
+            <div className="specs">
+              {[
+                {
+                  "test": (app: Application) => app.type,
+                  "line": (app: Application) => `Média de type '${app.type}'`,
+                  "icon": "question"
+                },
+                {
+                  "test": (app: Application) => app.verified,
+                  "line": (app: Application) => "Publié sur le catalogue public",
+                  "icon": "check"
+                },
+                {
+                  "test": (app: Application) => !app.verified,
+                  "line": (app: Application) => "Média en attente de vérification",
+                  "icon": "hourglass-half"
+                },
+                {
+                  "test": (app: Application) => app.permissions.includes("economy"),
+                  "line": (app: Application) => "Application intégrée à l'économie SYN",
+                  "icon": "coins"
+                },
+                {
+                  "test": (app: Application) => app.tags.includes("partenaire"),
+                  "line": (app: Application) => "Partenaire vérifié de l'écosystème Synapse",
+                  "icon": "handshake"
+                },
+                {
+                  "test": (app: Application) => app.tags.includes("open-source"),
+                  "line": (app: Application) => "Code source disponible en sources ouvertes",
+                  "icon": "git-alt",
+                  "prefix": "fab"
+                },
+                {
+                  "test": (app: Application) => app.tags.includes("indépendant"),
+                  "line": (app: Application) => "Aut.eur.rice indépendant.e",
+                  "icon": "person"
+                },
+              ].map(
+                (tag) =>
+                  tag.test(app) && (
+                    <div key={tag.line(app)}>
+                      <Icon name={tag.icon} prefix={tag.prefix || "fas"} /> {tag.line(app)}
+                    </div>
+                  )
+              )}
+            </div>
+          </div>
+          <div className="flex-col gap-10">
+            <h1>Métadonnées</h1>
+            <div>
+              {app.tags.join(', ')}
+            </div>
+          </div>
+          <div className="flex-col gap-10">
+            <h1>Missions rattachées</h1>
+            <div>Fonctionnalité en développement.</div>
           </div>
         </div>
       </div>

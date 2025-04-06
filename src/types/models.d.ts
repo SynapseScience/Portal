@@ -10,6 +10,7 @@ export interface Application {
   tags: string[];
   permissions: string[];
   stargazers: string[];
+  type: string;
 }
 
 export interface User {

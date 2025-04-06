@@ -24,10 +24,6 @@
   width: 100%;
 }
 
-.specs {
-  margin: 15px 0;
-}
-
 .specs > div {
   display: flex; 
   gap: 10px;
@@ -50,4 +46,9 @@
 
 .specs svg {
   height: 1em;
+}
+
+.thumbnail {
+  aspect-ratio: 2;
+  border-radius: 15px;
 }
