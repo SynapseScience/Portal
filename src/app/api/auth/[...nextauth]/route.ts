@@ -9,7 +9,7 @@ const handler = NextAuth({
       authorization: process.env.NEXT_PUBLIC_SYNAPSE_STATIC + "/oauth/login",
       userinfo: process.env.NEXT_PUBLIC_SYNAPSE_API + "/me",
       token: {
-        url: process.env.NEXT_PUBLIC_SYNAPSE_API + "/token",
+        url: process.env.NEXT_PUBLIC_SYNAPSE_API + "/oauth/token",
         async request({ params, provider }) {
           const {
             code,
@@ -18,7 +18,7 @@ const handler = NextAuth({
           const base64Credentials = Buffer.from(credentials).toString("base64");
 
           const response = await fetch(
-            process.env.NEXT_PUBLIC_SYNAPSE_API + "/token?grant_type=authorization_code&code=" + code, 
+            process.env.NEXT_PUBLIC_SYNAPSE_API + "/oauth/token?grant_type=authorization_code&code=" + code, 
             {
               method: "POST",
               headers: {
