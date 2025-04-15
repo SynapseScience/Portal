@@ -91,9 +91,7 @@ export default function Devkit() {
   const [client_secret, setSecret] = useState(null);
 
   return <div className="cols equal">
-    <div className="bubble" style={{
-      height: "calc(100vh - 200px)"
-    }}>
+    <div className="bubble full-height">
       <h1>Vos Applications</h1>
       <p>N'importe qui peut soumettre son projet à l'intégration dans l'écosystème Synapse. Chaque soumission sera traitée par un conseil de modération, puis approuvée ou non. Des permissions de base seront alors accordées. Pour obtenir plus d'accès, il sera nécessaire de contacter le support par mail ou sur le serveur discord de la communauté.</p>
       <div id="devkit-results">

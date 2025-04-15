@@ -27,7 +27,7 @@ export default function MissionCard({ mission }: { mission: Mission }) {
       <h2>{mission.title}</h2>
       <div className={"button"}>
         <button className={tryable ? "" : "inverted disabled"} onClick={tryable ? redirect_closure(mission.link) : () => true}>{done ? "Effectuée" : "Effectuer"}</button>
-        <span className="syn">+{mission.reward}</span>
+        <span className="syn">+{mission.value}</span>
       </div>
     </div>
     <p>{mission.description}</p>

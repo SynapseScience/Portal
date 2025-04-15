@@ -65,7 +65,7 @@ export default function Layout({ children }: Props) {
                   <MenuItem to="/social" icon="comments" text="Communauté" disabled />
                   <MenuItem to="/medias" icon="newspaper" text="Médias" disabled />
                   <MenuItem to="/events" icon="calendar-check" text="Évènements" disabled />
-                  <MenuItem to="/trade" icon="money-bill-trend-up" text="Échanges" disabled />
+                  <MenuItem to="/economy" icon="money-bill-trend-up" text="Économie" />
                   <MenuItem to="/devkit" icon="gear" text="Devkit" />
                 </nav>
                 <main>{children}</main>

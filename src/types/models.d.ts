@@ -23,16 +23,28 @@ export interface User {
   followers: string[];
   description: string;
   pronouns: string;
-  account: number;
+  balance: number;
 }
 
 export interface Mission {
   mission_id: string;
-  reward: number;
+  value: number;
   title: string;
   creation: Date;
   description: string;
   link: string;
   application: string;
   claimed: string[];
+}
+
+export interface Item {
+  item_id: string;
+  value: number;
+  title: string;
+  creation: Date;
+  description: string;
+  link: string;
+  application: string;
+  claimed: string[];
+  badge?: string;
 }
