@@ -12,7 +12,7 @@ export default function Home() {
   const [searchQuery, setQuery] = useState("");
   const [selectedSort, setSelectedSort] = useState("newest");
   const [selectedFilters, setSelectedFilters] = useState(["indépendant", "francophone"]);
-  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedTypes, setSelectedTypes] = useState(["plateforme", "outil", "jeu", "données", "forum"]);
   
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
