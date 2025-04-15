@@ -5,11 +5,12 @@ import DevAppCard from "../../components/DevAppCard";
 import "./Devkit.css";
 import { useSession } from "next-auth/react";
 import { Application } from "@/types/models";
+import { useUser } from "@/context/UserContext";
 
 export default function Devkit() {
 
   const { data: session } = useSession();
-  const me = session ? session.user : null;
+  const { user, loading } = useUser();
   const token = session ? session.accessToken : null;
 
   const [formData, setFormData] = useState({
@@ -86,7 +87,7 @@ export default function Devkit() {
       }
       
     })()
-  }, [me, token]);
+  }, [user, token]);
 
   const [client_secret, setSecret] = useState(null);
 
@@ -99,7 +100,8 @@ export default function Devkit() {
       </div>
     </div>
     <div className="bubble transparent">{
-      me ?
+      loading ? <></> : (
+      user ?
       (client_secret ? 
       <div className="form bubble outline">
         <h1>Parfait !</h1>
@@ -186,6 +188,9 @@ export default function Devkit() {
     ) : <div className="form bubble outline">
           <h1>Oups...</h1>
           <p>Il vous faut être connecté pour soumettre une nouvelle application Synapse !</p>
-        </div>}</div>
+        </div>
+      )
+    }
+    </div>
   </div>;
 }

@@ -5,23 +5,13 @@ import UserCard from "../../../components/UserCard";
 import AppCard from "../../../components/AppCard";
 import "./Profile.css";
 import { notFound } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { Application } from "@/types/models";
-import { CustomUser } from "next-auth";
 
 type P = { username: string; };
 
 export default function Profile({ params }: { params: Promise<P> }) {
-
-  const { data: session } = useSession();
-  const me = session ? session.user : null;
-  const token = session ? session.accessToken : null;
-
-  const setMe = (userInfos: CustomUser) => {
-    if(session) session.user = userInfos;
-  }
   
-  const [user, setUser] = useState(null);
+  const [displayedUser, setDisplayedUser] = useState(null);
   const [apps, setApps] = useState([]);
   const [tried, setTried] = useState(false);
   
@@ -37,8 +27,8 @@ export default function Profile({ params }: { params: Promise<P> }) {
       })
       
       if(response.ok) {
-        const userInfos = await response.json();
-        setUser(userInfos);
+        const displayedUserInfos = await response.json();
+        setDisplayedUser(displayedUserInfos);
       }
 
       setTried(true);
@@ -62,13 +52,10 @@ export default function Profile({ params }: { params: Promise<P> }) {
 
   return tried && <div className="cols" style={{ gap: "0px" }}>
     <div className="bubble transparent">{
-      user 
+      displayedUser 
         ? <UserCard 
-          user={user} 
-          me={me}
-          token={token} 
-          setMe={setMe}
-          setUser={setUser}
+          displayedUser={displayedUser}
+          setDisplayedUser={setDisplayedUser}
         /> 
         : <div className="bubble outline" style={{
           display: "flex",

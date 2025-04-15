@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import "../styles/UserCard.css";
 import { CustomUser } from "next-auth";
+import { useSession } from "next-auth/react";
+import { useUser } from "@/context/UserContext";
 
 type Props = {
-  user: CustomUser;
-  me: CustomUser | null;
-  token: string | null;
-  setMe: Function;
-  setUser: Function;
+  displayedUser: CustomUser;
+  setDisplayedUser: Function;
 }
 
-export default function UserCard({ user, me, token, setMe, setUser }: Props) {
+export default function UserCard({ displayedUser, setDisplayedUser }: Props) {
   let bttn = <></>;
 
+  const { data: session } = useSession();
+  const token = session ? session.accessToken : null;
+  const { user, updateUser } = useUser();
+
   const [edition, setEdition] = useState(false);
-  const [followers, setFollowers] = useState(user.followers.length);
+  const [followers, setFollowers] = useState(displayedUser.followers.length);
   const [followLine, setFollowline] = useState("");
   const [formData, setFormData] = useState({
     fullname: "",
@@ -22,10 +25,10 @@ export default function UserCard({ user, me, token, setMe, setUser }: Props) {
     description: "",
   });
 
-  if(!user) return <></>;
+  if(!displayedUser) return <></>;
 
   const follow = async () => {
-    const url = process.env.NEXT_PUBLIC_SYNAPSE_API + "/follow?username=" + user.username;
+    const url = process.env.NEXT_PUBLIC_SYNAPSE_API + "/follow?username=" + displayedUser.username;
     const response = await fetch(url, {
       method: "PUT",
       headers: {
@@ -49,12 +52,12 @@ export default function UserCard({ user, me, token, setMe, setUser }: Props) {
     setEdition(true);
   }
 
-  if(me) {
-    if(me.username !== user.username) {
+  if(user) {
+    if(user.username !== displayedUser.username) {
       if(followLine) {
         bttn = <button onClick={follow}>{followLine}</button>
       } else {
-        if(me.following.includes(user.username)) {
+        if(user.following.includes(displayedUser.username)) {
           bttn = <button 
             className="outline" 
             onClick={follow}>Ne plus suivre</button>
@@ -69,9 +72,9 @@ export default function UserCard({ user, me, token, setMe, setUser }: Props) {
       onClick={editProfile}>Modifier mon profil</button>;
 
     if(!edition && formData.fullname == "") setFormData({
-      fullname: me.fullname,
-      description: me.description,
-      pronouns: me.pronouns
+      fullname: user.fullname,
+      description: user.description,
+      pronouns: user.pronouns
     })
   }
 
@@ -101,8 +104,8 @@ export default function UserCard({ user, me, token, setMe, setUser }: Props) {
       } else {
         const data = await res.json();
         setEdition(false);
-        setMe(data.user);
-        setUser(data.user);
+        updateUser(data.user);
+        setDisplayedUser(data.user);
       }
 
     } catch (error) {
@@ -112,7 +115,7 @@ export default function UserCard({ user, me, token, setMe, setUser }: Props) {
 
   let placeholderBadges = [];
 
-  for(let i=0; i < (8 - user.badges.length); i++) {
+  for(let i=0; i < (8 - displayedUser.badges.length); i++) {
     placeholderBadges.push(
       <div className="badge placeholder"></div>
     )
@@ -167,10 +170,10 @@ export default function UserCard({ user, me, token, setMe, setUser }: Props) {
     : 
     <div className="profile bubble outline">
     <div className="cols" style={{ gap: "20px" }} >
-      <img alt="avatar" className="avatar" src={user.avatar && user.avatar.length ? user.avatar :
+      <img alt="avatar" className="avatar" src={displayedUser.avatar && displayedUser.avatar.length ? displayedUser.avatar :
       `${process.env.NEXT_PUBLIC_SYNAPSE_STATIC}/assets/user.png` } />
       <div className="badges outline">{
-        user.badges.map((badge: string) => {
+        displayedUser.badges.map((badge: string) => {
           return <img
             className="badge"
             alt={"badge " + badge}
@@ -178,13 +181,13 @@ export default function UserCard({ user, me, token, setMe, setUser }: Props) {
         })
       }{placeholderBadges}</div>
     </div>
-    <h1>{user.fullname}</h1>
+    <h1>{displayedUser.fullname}</h1>
     <div className="details">
-      <span>@{user.username} - {user.pronouns}</span>
-      <span>{followers} abonnés - {user.following.length} abonnements</span>
+      <span>@{displayedUser.username} - {displayedUser.pronouns}</span>
+      <span>{followers} abonnés - {displayedUser.following.length} abonnements</span>
     </div>
     {bttn}
-    <p>{user.description}</p>
+    <p>{displayedUser.description}</p>
   </div>
 
 }

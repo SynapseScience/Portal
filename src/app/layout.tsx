@@ -7,6 +7,7 @@ import Icon from "../components/Icon";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { useState } from "react";
+import { UserProvider } from "@/context/UserContext";
 config.autoAddCss = false;
 
 interface Props {
@@ -48,33 +49,35 @@ export default function Layout({ children }: Props) {
         </head>
         <body className={darkTheme ? "dark" : "classic"}>
           <SessionProvider>
-            <div id="root">
-              <div id="screen" className={popup ? "" : "disabled"} onClick={() => setPopup(null)} />
-              <nav>
-                <h1 id="title">Synapse</h1>
-                <div className="flex gap-20">
-                  <div id="theme-switch" className="pointer outline" onClick={() => switchTheme(!darkTheme)}>
-                    <Icon name={darkTheme ? "sun" : "moon"} />
-                  </div>
-                  <Button />
-                </div>
-              </nav>
-              <main>
+            <UserProvider>
+              <div id="root">
+                <div id="screen" className={popup ? "" : "disabled"} onClick={() => setPopup(null)} />
                 <nav>
-                  <MenuItem to="/" icon="house" text="Applications" />
-                  <MenuItem to="/social" icon="comments" text="Communauté" disabled />
-                  <MenuItem to="/medias" icon="newspaper" text="Médias" disabled />
-                  <MenuItem to="/events" icon="calendar-check" text="Évènements" disabled />
-                  <MenuItem to="/economy" icon="money-bill-trend-up" text="Économie" />
-                  <MenuItem to="/devkit" icon="gear" text="Devkit" />
+                  <h1 id="title">Synapse</h1>
+                  <div className="flex gap-20">
+                    <div id="theme-switch" className="pointer outline" onClick={() => switchTheme(!darkTheme)}>
+                      <Icon name={darkTheme ? "sun" : "moon"} />
+                    </div>
+                    <Button />
+                  </div>
                 </nav>
-                <main>{children}</main>
-              </main>
-              <div 
-                id="popup" 
-                className={"bubble outline " + (popup ? "" : "disabled")}
-              >{popup}</div>
-            </div>
+                <main>
+                  <nav>
+                    <MenuItem to="/" icon="house" text="Applications" />
+                    <MenuItem to="/social" icon="comments" text="Communauté" disabled />
+                    <MenuItem to="/medias" icon="newspaper" text="Médias" disabled />
+                    <MenuItem to="/events" icon="calendar-check" text="Évènements" disabled />
+                    <MenuItem to="/economy" icon="money-bill-trend-up" text="Économie" />
+                    <MenuItem to="/devkit" icon="gear" text="Devkit" />
+                  </nav>
+                  <main>{children}</main>
+                </main>
+                <div 
+                  id="popup" 
+                  className={"bubble outline " + (popup ? "" : "disabled")}
+                >{popup}</div>
+              </div>
+            </UserProvider>
           </SessionProvider>
         </body>
       </html>

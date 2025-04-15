@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Mention from "./Mention";
 import Icon from "./Icon";
 import "../styles/AppCard.css";
-import { useSession } from "next-auth/react";
+import { useUser } from "@/context/UserContext";
 import { Application } from "@/types/models";
 
 export default function AppCard({ app }: { app: Application }) {
@@ -17,14 +17,13 @@ export default function AppCard({ app }: { app: Application }) {
     return f;
   };
 
-  const { data: session } = useSession();
-  const me = session ? session.user : null;
+  const { user } = useUser();
   
   const [likes, setLikes] = useState(app.stargazers.length);
   const [liked, setLiked] = useState(false);
 
   if(likes == app.stargazers.length) {
-    if(!liked && me && app.stargazers.includes(me.username)) setLiked(true);
+    if(!liked && user && app.stargazers.includes(user.username)) setLiked(true);
   } 
   
   const like_closure = (client_id: string): EHandler => {
@@ -37,11 +36,11 @@ export default function AppCard({ app }: { app: Application }) {
         }
       })
 
-      if(response && me && response.ok) {
+      if(response && user && response.ok) {
         const data = await response.json();
 
         setLikes(data.application.stargazers.length)
-        setLiked(data.application.stargazers.includes(me.username));
+        setLiked(data.application.stargazers.includes(user.username));
       }
     }
 
@@ -64,7 +63,7 @@ export default function AppCard({ app }: { app: Application }) {
         } else return <Mention username={author} />;
       })}</span>
       <div className="cols">
-        {me ? <button onClick={like_closure(app.client_id)} className="inverted outline">{likes} {
+        {user ? <button onClick={like_closure(app.client_id)} className="inverted outline">{likes} {
           <Icon name="heart" outline={!liked} />
         }</button> : <button className="inverted outline disabled">{likes} {
           <Icon name="heart" outline={true} />

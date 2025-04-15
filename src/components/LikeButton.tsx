@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Application } from "@/types/models";
 import Icon from "./Icon";
+import { useUser } from "@/context/UserContext";
 
 type LikeProps = {
   app: Application;
@@ -11,10 +12,10 @@ type LikeProps = {
 
 export default function LikeButton({ app }: LikeProps) {
   const { data: session } = useSession();
-  const me = session ? session.user : null;
+  const { user } = useUser();
 
   let [likes, setLikes] = useState(app.stargazers.length);
-  let [liked, setLiked] = useState(me ? app.stargazers.includes(me.username) : false);
+  let [liked, setLiked] = useState(user ? app.stargazers.includes(user.username) : false);
 
   type EHandler = React.MouseEventHandler<HTMLButtonElement>;
   
@@ -28,18 +29,18 @@ export default function LikeButton({ app }: LikeProps) {
         }
       })
 
-      if(response && me && response.ok) {
+      if(response && user && response.ok) {
         const data = await response.json();
 
         setLikes(data.application.stargazers.length);
-        setLiked(data.application.stargazers.includes(me.username));
+        setLiked(data.application.stargazers.includes(user.username));
       }
     }
 
     return f;
   }
 
-  return me ? <button 
+  return user ? <button 
     onClick={like_closure(app.client_id)} 
     className="inverted outline">{likes} {
     <Icon name="heart" outline={!liked} />

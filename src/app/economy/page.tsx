@@ -65,7 +65,7 @@ export default function Trade() {
         { loadingMissions ? <span>Chargement des missions...</span> 
           : (missions.length > 0
           ? missions.map(mission => <MissionCard mission={mission} />)
-          : <span>Aucune mission disponible pour l'instant.</span>) 
+          : <span>Aucune mission disponible pour l'instant.</span>)
         }
       </div>
     </div>

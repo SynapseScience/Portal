@@ -3,11 +3,11 @@
 import { useSession } from "next-auth/react";
 import "../styles/MissionCard.css";
 import { Mission } from "@/types/models";
+import { useUser } from "@/context/UserContext";
 
 export default function MissionCard({ mission }: { mission: Mission }) {
 
-  const { data: session } = useSession();
-  const me = session ? session.user : null;
+  const { user } = useUser();
 
   type EHandler = React.MouseEventHandler<HTMLButtonElement>;
 
@@ -19,8 +19,8 @@ export default function MissionCard({ mission }: { mission: Mission }) {
     return f;
   };
 
-  const done = me && mission.claimed.includes(me.username);
-  const tryable = me && !done;
+  const done = user && mission.claimed.includes(user.username);
+  const tryable = user && !done;
 
   return <div className="mission bubble outline">
     <div className="top">
