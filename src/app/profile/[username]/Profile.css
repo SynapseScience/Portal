@@ -3,8 +3,9 @@
   gap: 15px;
   overflow-x: auto;
   flex-wrap: nowrap;
-  width: 100%;
+  width: calc(100% - 2px);
   margin-top: 15px;
+  padding: 1px;
 }
 
 .bubble.right {

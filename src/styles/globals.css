@@ -73,6 +73,8 @@ button {
   transition: background 10ms ease-in-out;
 }
 
+
+
 button:hover {
   background: #0f0443;
 }
@@ -123,10 +125,6 @@ pre:has(code) {
 code {
   white-space: pre-wrap;
   width: 100%;
-}
-
-*:focus {
-  outline: none;
 }
 
 a, button, .pointer {
@@ -392,4 +390,19 @@ h1#title {
   gap: 15px;
   flex-direction: row;
   align-items: center;
+}
+
+.syn::after {
+  content: "";
+  position: relative;
+  display: inline-block;
+  right: -5px;
+  transform: translate(0, -10%);
+  vertical-align: middle;
+  width: var(--syn-radius, 20px);
+  height: var(--syn-radius, 20px);
+  aspect-ratio: 1 / 1;
+  background-image: url("https://api.connectome.fr/assets/SYN.png");
+  z-index: 99;
+  background-size: contain;
 }

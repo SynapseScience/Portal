@@ -73,10 +73,11 @@ export default function Profile({ params }: { params: Promise<P> }) {
         : <div className="bubble outline" style={{
           display: "flex",
           flexDirection: "column",
-          gap: "10px"
+          gap: "10px",
+          width: "300px"
         }}>
-          <h1>Utilisateur inconnu</h1>
-          <span>Cette personne n'est pas encore enregistrée dans l'écosystème Synapse ! Invitez-la à rejoidre en partageant la plate-forme !</span>
+          <h1>@{username}</h1>
+          <span>Cette personne n'est pas encore enregistrée dans l'écosystème Synapse. Invitez-la à rejoidre en partageant la plate-forme !</span>
         </div>
     }</div>
     <div className="bubble right transparent" style={{ paddingLeft: "0px" }}>

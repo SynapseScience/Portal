@@ -87,18 +87,3 @@ span.synapse-username {
 #synapse-login.synapse-text-white.logged {
   color: var(--font-color) !important;
 }
-
-.syn::after {
-  content: "";
-  position: relative;
-  display: inline-block;
-  right: -5px;
-  transform: translate(0, -10%);
-  vertical-align: middle;
-  width: var(--syn-radius, 20px);
-  height: var(--syn-radius, 20px);
-  aspect-ratio: 1 / 1;
-  background-image: var(--syn-url);
-  z-index: 99;
-  background-size: contain;
-}

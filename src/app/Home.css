@@ -20,8 +20,9 @@
   gap: 15px;
   padding: 0px 50px;
   overflow-y: scroll;
-  height: calc(100% - 100px);
+  height: calc(100% - 99px);
   flex-wrap: wrap;
+  padding-top: 1px;
 }
 
 #root > main > main:has(.results) {
