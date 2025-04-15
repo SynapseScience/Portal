@@ -91,7 +91,9 @@ export default function Devkit() {
   const [client_secret, setSecret] = useState(null);
 
   return <div className="cols equal">
-    <div className="bubble">
+    <div className="bubble" style={{
+      height: "calc(100vh - 200px)"
+    }}>
       <h1>Vos Applications</h1>
       <p>N'importe qui peut soumettre son projet à l'intégration dans l'écosystème Synapse. Chaque soumission sera traitée par un conseil de modération, puis approuvée ou non. Des permissions de base seront alors accordées. Pour obtenir plus d'accès, il sera nécessaire de contacter le support par mail ou sur le serveur discord de la communauté.</p>
       <div id="devkit-results">
@@ -99,7 +101,8 @@ export default function Devkit() {
       </div>
     </div>
     <div className="bubble transparent">{
-      client_secret ? 
+      me ?
+      (client_secret ? 
       <div className="form bubble outline">
         <h1>Parfait !</h1>
         <p>Votre application a bien été enregistrée, en attente de validation. Contactez la modération pour faire avancer votre demande ! En attendant, n'oubliez pas de conserver précieusement votre client_secret pour cette application : <code>{client_secret}</code></p>
@@ -182,6 +185,9 @@ export default function Devkit() {
         </div>
         <button onClick={handleSubmit}>Soumettre</button>
       </div>
-    }</div>
+    ) : <div className="form bubble outline">
+          <h1>Oups...</h1>
+          <p>Il vous faut être connecté pour soumettre une nouvelle application Synapse !</p>
+        </div>}</div>
   </div>;
 }
