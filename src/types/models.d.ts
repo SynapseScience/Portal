@@ -2,7 +2,6 @@ export interface Application {
   authors: string[];
   client_id: string;
   title: string;
-  thumbnail?: string;
   description: string;
   verified: boolean;
   link: string;
@@ -11,6 +10,7 @@ export interface Application {
   permissions: string[];
   stargazers: string[];
   type: string;
+  thumbnail?: string;
 }
 
 export interface User {
@@ -24,4 +24,15 @@ export interface User {
   description: string;
   pronouns: string;
   account: number;
+}
+
+export interface Mission {
+  mission_id: string;
+  reward: number;
+  title: string;
+  creation: Date;
+  description: string;
+  link: string;
+  application: string;
+  claimed: string[];
 }

@@ -1,0 +1,25 @@
+.mission {
+  padding: 40px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 430px;
+}
+
+.mission * {
+  margin: 0px;
+}
+
+.mission .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mission .button {
+  display: flex;
+  align-items: center;
+  width: 130px;
+  gap: 15px;
+  width: 160px;
+}

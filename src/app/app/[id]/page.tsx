@@ -4,11 +4,22 @@ import Icon from "@/components/Icon";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import "./App.css";
-import { Application } from "../../../types/models";
+import { Application, Mission } from "../../../types/models";
 import LikeButton from "@/components/LikeButton";
+import MissionCard from "@/components/MissionCard";
 
 async function getAppData(client_id: string, apiUrl: string) {
   const response = await fetch(`${apiUrl}/application?client_id=${client_id}`, {
+    method: "GET",
+    cache: "no-store",
+  });
+
+  if (!response.ok) return null;
+  return await response.json();
+}
+
+async function getMissions(client_id: string, apiUrl: string) {
+  const response = await fetch(`${apiUrl}/missions?application=${client_id}`, {
     method: "GET",
     cache: "no-store",
   });
@@ -62,7 +73,7 @@ export async function generateMetadata({ params }: Props) {
       type: "website",
     },
     twitter: {
-      card: "summary_small_image",
+      card: "summary_large_image",
       title: app.title,
       description: app.description,
       images: [app.thumbnail || process.env.NEXT_PUBLIC_SYNAPSE_STATIC + "/assets/banner.jpg"],
@@ -76,24 +87,21 @@ export default async function AppPage({ params }: Props) {
   
   const apiUrl = process.env.NEXT_PUBLIC_SYNAPSE_API as string;
   const app = await getAppData(client_id, apiUrl) as Application;
-
+  const missionsResponse = await getMissions(client_id, apiUrl);
+  const missions = missionsResponse.missions as Mission[];
+  
   if (!app) return notFound();
 
   return (
     <>
       <div className="cols" style={{ gap: "0px" }}>
         <div className="bubble transparent flex-col gap-20">
-          <div className="thumbnail outline" style={{
-            backgroundImage: `url(${app.thumbnail})`
+          { app.thumbnail && <div className="thumbnail outline" style={{
+            backgroundImage: `url(${app.thumbnail})`,
+            backgroundSize: "cover"
           }}>
-          </div>
-          <div
-            className="bubble outline app"
-            style={{
-              backgroundImage: app.thumbnail 
-                ? `url(${app.thumbnail})` 
-                : "url(none)",
-            }}>
+          </div> }
+          <div className="bubble outline app">
             <div className="banner"></div>
             <div className="details">
               <h1>{app.title}</h1>
@@ -172,12 +180,18 @@ export default async function AppPage({ params }: Props) {
           <div className="flex-col gap-10">
             <h1>Métadonnées</h1>
             <div>
-              {app.tags.join(', ')}
+              {app.tags.length > 0 ? app.tags.join(', ') : <span>Aucun tag fourni pour cette application.</span>}
             </div>
           </div>
           <div className="flex-col gap-10">
             <h1>Missions rattachées</h1>
-            <div>Fonctionnalité en développement.</div>
+            <div className="missions">{
+              missions.length > 0 
+                ? missions.map(mission => {
+                  return <MissionCard mission={mission} />
+                })
+                : <span>Aucune mission concernant cette application.</span>
+            }</div>
           </div>
         </div>
       </div>
